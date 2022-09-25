@@ -2,7 +2,105 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<!--
+ Author:    Robert Davidson
+ Partner:   David Clark
+ Date:      08/27/2022
+ Course:    CS 4540, University of Utah, School of Computing
+ Copyright: CS 4540, David Clark and Robert Davidson - This work may not be copied for use in Academic Coursework.
+
+ I, David Clark, certify that I wrote this code from scratch and did not copy it in part or whole from another source. Any references used in the completion of the assignment are cited in my README file.
+ I, Robert Davidson, certify that I wrote this code from scratch and did not copy it in part or whole from another source. Any references used in the completion of the assignment are cited in my README file.
+ File Contents
+    This is the index for our TA Application site, it welcomes users and directs them to more useful pages.
+-->
+
+<!--Centered Hero, custom component-->
+<div class="px-4 py-5 my-5 text-center">
+    <img class="d-block mx-auto mb-4" src="images/logo-64.png" alt="" width="64" height="64">
+    <h1 class="display-5 fw-bold">Become a School of Computing TA</h1>
+    <div class="col-lg-6 mx-auto">
+        <p class="lead mb-4">Teaching can help your learning and pay some bills!</p>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <a href="Home/ApplicationCreate" aria="Apply Now"><button type="button" class="btn btn-primary btn-lg px-4 gap-3">Apply Now</button></a>
+        </div>
+    </div>
+</div>
+<!--Features, custom component-->
+<div class="container px-4 py-5" id="custom-cards">
+    <div class="border-bottom"></div>
+    <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+        <div class="col">
+            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url('images/trophy.jpg');">
+                <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                    <h2 class="card-title pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">TA of the Semester</h2>
+                    <ul class="card-foot d-flex list-unstyled mt-auto">
+                        <li class="me-auto">
+                            <img src="images/logo-32.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
+                        </li>
+                        <li class="d-flex align-items-center me-3">
+                            <svg class="bi me-2" width="1em" height="1em">
+                                <use xlink:href="#geo-fill"></use>
+                            </svg>
+                            <a href="#" class="link-secondary">Read more...</a>
+                        </li>
+                        <li class="d-flex align-items-center">
+                            <svg class="bi me-2" width="1em" height="1em">
+                                <use xlink:href="#calendar3"></use>
+                            </svg>
+                            <small>May 5</small>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url('images/large_lecture.jpg');">
+                <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                    <h2 class="card-title pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Utah's Most Wanted: TAs In-Demand</h2>
+                    <ul class="card-foot d-flex list-unstyled mt-auto">
+                        <li class="me-auto">
+                            <img src="images/logo-32.png" alt="TA Application" width="32" height="32" class="rounded-circle border border-white">
+                        </li>
+                        <li class="d-flex align-items-center me-3">
+                            <svg class="bi me-2" width="1em" height="1em">
+                                <use xlink:href="#geo-fill"></use>
+                            </svg>
+                            <a href="#" class="link-secondary">Read more...</a>
+                        </li>
+                        <li class="d-flex align-items-center">
+                            <svg class="bi me-2" width="1em" height="1em">
+                                <use xlink:href="#calendar3"></use>
+                            </svg>
+                            <small>Sept 3</small>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url('images/book-background.jpg');">
+                <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
+                    <h2 class="card-title pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Top Subjects in Need of TAs</h2>
+                    <ul class="card-foot d-flex list-unstyled mt-auto">
+                        <li class="me-auto">
+                            <img src="images/logo-32.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
+                        </li>
+                        <li class="d-flex align-items-center me-3">
+                            <svg class="bi me-2" width="1em" height="1em">
+                                <use xlink:href="#geo-fill"></use>
+                            </svg>
+                            <a href="#" class="link-secondary">Read more...</a>
+                        </li>
+                        <li class="d-flex align-items-center">
+                            <svg class="bi me-2" width="1em" height="1em">
+                                <use xlink:href="#calendar3"></use>
+                            </svg>
+                            <small>Aug 20</small>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

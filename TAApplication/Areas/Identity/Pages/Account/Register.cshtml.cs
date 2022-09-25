@@ -102,8 +102,8 @@ namespace TAApplication.Areas.Identity.Pages.Account
 
             [Required]
             [EmailAddress]
-            [RegularExpression(@"u[0-9]{7}@(umail.)?utah.edu$")] // TODO: Test this regex
-            [Display(Name = "U of U Email - u1234567@utah.edu")]
+            [RegularExpression(@"u[0-9]{7}@(umail.)?utah.edu$")]
+            [Display(Name = "U of U Email")]
             public string Email { get; set; }
 
             [Required]

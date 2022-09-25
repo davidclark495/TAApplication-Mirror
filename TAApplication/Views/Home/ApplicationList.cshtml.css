@@ -1,0 +1,90 @@
+﻿/*
+	Author: Robert Davidson
+	Partner: David Clark
+	Date: 08/27/2022
+	Course: CS 4540, University of Utah, School of Computing
+	Copyright: CS 4540, David Clark and Robert Davidson - This work may not be copied for use in Academic Coursework.
+ 
+    I, David Clark, certify that I wrote this code from scratch and did not copy it in part or whole from 
+    another source.  Any references used in the completion of the assignment are cited in my README file.
+
+	I, Robert Davidson, certify that I wrote this code from scratch and did not copy it in part or whole from
+	another source. Any references used in the completion of the assignment are cited in my README file.
+
+	File Contents
+
+		Contains styling for the ApplicationList page, w/ a focus on styling tables.
+*/
+:root {
+    /* https://palettes.shecodes.io/palettes/1532 */
+    --primary-color: #000278;
+    --secondary-color: #192294;
+    --accent-color: DarkGoldenRod;
+    --neutral-color: white;
+    --neutral-accent-color: #b7b9f4;
+    --neutral-inverse-color: #505050;
+    --text-color: black;
+    --detail-text-color: blue;
+    --table-bg-1: #eeeeee;
+    --table-bg-2: #dddddd;
+}
+
+#bg-image {
+    z-index: -1;
+    position: absolute;
+    min-width: 100%;
+    height: 80%;
+}
+
+#table-wrapper {
+    position: absolute;
+    left: 10%;
+    right: 10%;
+    min-width: 400px;
+    max-width: 1500px;
+    background-color: var(--neutral-color);
+    overflow-x: scroll;
+    box-shadow: 0px 0px 15px var(--neutral-inverse-color);
+    margin-top: 200px;
+    padding-top: 20px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+#applicant-table {
+    padding: 16px;
+    width: 90%;
+    height: 90%;
+}
+
+.center {
+    margin: 0 auto;
+    text-align: center;
+}
+
+body {
+    margin: 0;
+}
+
+td,
+th {
+    padding: 16px;
+}
+
+th {
+    background-color: var(--neutral-inverse-color);
+    color: var(--neutral-color);
+}
+
+tr:nth-child(even) {
+    background-color: var(--table-bg-1);
+}
+
+tr:nth-child(odd) {
+    background-color: var(--table-bg-2);
+}
+
+tr:first-child {
+    background-color: var(--neutral-color);
+    font-style: oblique;
+}
