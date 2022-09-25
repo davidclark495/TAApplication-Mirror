@@ -67,7 +67,6 @@ namespace TAApplication.Areas.Identity.Pages.Account
             /// </summary>
             [Required]
             [EmailAddress]
-            [RegularExpression(@"u[0-9]{7}@(umail.)?utah.edu$")]
             [Display(Name = "U of U Email")]
             public string Email { get; set; }
 

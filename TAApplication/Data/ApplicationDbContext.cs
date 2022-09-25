@@ -62,7 +62,14 @@ namespace TAApplication.Data
             foreach (TAUser user in users)
             {
                 user.UserName = user.Email;
+                user.EmailConfirmed = true;
                 await um.CreateAsync(user, "123ABC!@#def");
+                if (user.Unid == 1234567)
+                    await um.AddToRoleAsync(user, "Admin");
+                else if (user.Unid == 7654321)
+                    await um.AddToRoleAsync(user, "Professor");
+                else
+                    await um.AddToRoleAsync(user, "Applicant");
             }
             //await um.CreateAsync(new TAUser { Name = "User 2", Unid = 0000002, ReferredTo = "U2", Email = "u0000002@utah.edu", UserName = "u0000002@utah.edu" }, "123ABC!@#def");
             this.SaveChanges();
