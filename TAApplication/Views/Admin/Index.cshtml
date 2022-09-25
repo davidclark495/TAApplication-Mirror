@@ -1,0 +1,29 @@
+﻿@page
+@model TAApplication.Views.Admin.IndexModel
+@using Microsoft.AspNetCore.Identity
+@using TAApplication.Areas.Identity.Data
+@inject UserManager<TAUser> um
+@inject RoleManager<IdentityRole> rm
+@{
+
+}
+<table>
+    <tr>
+        <th>User</th>
+        <th>Unid</th>
+        <th>Applicant</th>
+        <th>Professor</th>
+        <th>Admin</th>
+    </tr>
+    @foreach (var user in um.Users)
+    {
+        <tr>
+            <td>@user.Name</td>
+            <td>@String.Format("{0}{1:d7}", "u", user.Unid)</td>
+            <td>@await um.IsInRoleAsync(user, "Applicant")</td>
+            <td>@await um.IsInRoleAsync(user, "Professor")</td>
+            <td>@await um.IsInRoleAsync(user, "Admin")</td>
+        </tr>
+    }
+
+</table>
