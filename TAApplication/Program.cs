@@ -1,5 +1,24 @@
+/*
+	Author: Robert Davidson
+	Partner: David Clark
+	Date: 09/23/2022
+	Course: CS 4540, University of Utah, School of Computing
+	Copyright: CS 4540, David Clark and Robert Davidson - This work may not be copied for use in Academic Coursework.
+	
+  	I, David Clark, certify that I wrote this code from scratch and did not copy it in part or whole from 
+  	another source.  Any references used in the completion of the assignment are cited in my README file.
+
+	I, Robert Davidson, certify that I wrote this code from scratch and did not copy it in part or whole from
+	another source. Any references used in the completion of the assignment are cited in my README file.
+
+	File Contents
+
+		TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+*/
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using TAApplication.Areas.Identity.Data;
 using TAApplication.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,11 +29,22 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<TAUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
+
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var DB = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    var um = scope.ServiceProvider.GetRequiredService<UserManager<TAUser>>();
+    var rm = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+    await DB.InitializeUsers(um, rm);
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
