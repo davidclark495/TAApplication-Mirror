@@ -7,7 +7,7 @@
 @{
 
 }
-<table>
+<table id="roleManager" class="table table-striped">
     <tr>
         <th>User</th>
         <th>Unid</th>
@@ -20,10 +20,27 @@
         <tr>
             <td>@user.Name</td>
             <td>@String.Format("{0}{1:d7}", "u", user.Unid)</td>
-            <td>@await um.IsInRoleAsync(user, "Applicant")</td>
-            <td>@await um.IsInRoleAsync(user, "Professor")</td>
-            <td>@await um.IsInRoleAsync(user, "Admin")</td>
+
+
+            @{
+                bool isApplicant = await um.IsInRoleAsync(user, "Applicant");
+                bool isProfessor = await um.IsInRoleAsync(user, "Professor");
+                bool isAdmin = await um.IsInRoleAsync(user, "Admin");
+            }
+
+            <td><input type="radio" value="isApplicant-@user.Unid" name="role-@user.Unid" checked=@isApplicant></input></td>
+            <td><input type="radio" value="isProfessor-@user.Unid" name="role-@user.Unid" checked=@isProfessor></input></td>
+            <td><input type="radio" value="isAdmin-@user.Unid" name="role-@user.Unid" checked=@isAdmin></input></td>
+
+
         </tr>
     }
 
 </table>
+@section Styles {
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+}
+@section Scripts {
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+    <script src="~/js/Admin/AssignRolesPage.js"></script>
+}
