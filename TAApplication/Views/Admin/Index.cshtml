@@ -8,14 +8,17 @@
 
 }
 <table id="roleManager" class="table table-striped">
-    <tr>
+    <thead>
+        <tr>
         <th>User</th>
         <th>Unid</th>
         <th>Applicant</th>
         <th>Professor</th>
         <th>Admin</th>
     </tr>
-    @foreach (var user in um.Users)
+    </thead>
+    <tbody>
+        @foreach (var user in um.Users)
     {
         <tr>
             <td>@user.Name</td>
@@ -35,12 +38,18 @@
 
         </tr>
     }
-
+    </tbody>
 </table>
+
 @section Styles {
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
 }
 @section Scripts {
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
     <script src="~/js/Admin/AssignRolesPage.js"></script>
+    <script type="text/javascript">
+        $( document ).ready(function() {
+            $('#roleManager').datatable({});
+        });
+    </script>
 }
