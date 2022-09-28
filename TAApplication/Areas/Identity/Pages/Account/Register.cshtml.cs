@@ -35,6 +35,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using TAApplication.Areas.Identity.Data;
 
@@ -87,6 +88,7 @@ namespace TAApplication.Areas.Identity.Pages.Account
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
+
         public class InputModel
         {
             /// <summary>
@@ -134,14 +136,19 @@ namespace TAApplication.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
-                //TODO: Validate email/unid
+                Input.Email = Input.Email.Replace("umail.", ""); // standardize email by removing "umail." 
+                if (await _userManager.FindByEmailAsync(Input.Email) == null)
+                {
+                    //TODO: show an appropriate error message
+                    return LocalRedirect(returnUrl);
+                }
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 user.Unid = Int32.Parse(Input.Email.Substring(1, 7));
                 user.ReferredTo = Input.ReferredTo;
                 user.Name = Input.Name;
                 var result = await _userManager.CreateAsync(user, Input.Password);
-                //await _userManager.AddToRoleAsync(user, "Applicant");
+                await _userManager.AddToRoleAsync(user, "Applicant");
 
                 if (result.Succeeded)
                 {

@@ -233,6 +233,9 @@ namespace TAApplication.Data.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
+                    b.HasIndex("Unid")
+                        .IsUnique();
+
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
