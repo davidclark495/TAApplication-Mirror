@@ -1,13 +1,41 @@
-﻿@using Microsoft.AspNetCore.Identity
+﻿<!--
+    Author: Robert Davidson
+    Partner: David Clark
+    Date: 09/23/2022
+    Course: CS 4540, University of Utah, School of Computing
+    Copyright: CS 4540, David Clark and Robert Davidson - This work may not be copied for use in Academic Coursework.
+
+      I, David Clark, certify that I wrote this code from scratch and did not copy it in part or whole from
+      another source.  Any references used in the completion of the assignment are cited in my README file.
+    I, Robert Davidson, certify that I wrote this code from scratch and did not copy it in part or whole from
+    another source. Any references used in the completion of the assignment are cited in my README file.
+    File Contents
+        TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+-->
+
+
+@using Microsoft.AspNetCore.Identity
 @using TAApplication.Areas.Identity.Data
 @inject SignInManager<TAUser> SignInManager
-@inject UserManager<TAUser> UserManager
+@inject UserManager<TAUser> _um
+@inject RoleManager<IdentityRole> _rm
 
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
-    <li class="nav-item">
-        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
+        TAUser? curUser = await _um.GetUserAsync(User);
+        string curRole = "";
+        if (await _um.IsInRoleAsync(curUser, "Applicant"))
+            curRole = "Applicant";
+        else if (await _um.IsInRoleAsync(curUser, "Professor"))
+            curRole = "Professor";
+        else if (await _um.IsInRoleAsync(curUser, "Admin"))
+            curRole = "Admin";
+
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+                @String.Format("{0} u{1:d7}", curRole, curUser.Unid)
+            </a>
     </li>
     <li class="nav-item">
         <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">

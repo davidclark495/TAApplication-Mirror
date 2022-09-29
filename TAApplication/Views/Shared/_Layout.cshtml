@@ -2,6 +2,9 @@
 @using TAApplication.Areas.Identity.Data
 @inject UserManager<TAUser> um
 @inject RoleManager<IdentityRole> rm
+@{
+    TAUser curUser = await um.GetUserAsync(User);
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,10 +37,20 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">TA</a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="ApplicationCreate">Apply Now</a></li>
+
+                                <li><p class="dropdown-item">@curUser.Name</p></li>
+                                <li><hr /></li>
+                                @if (await um.IsInRoleAsync(curUser, "Applicant"))
+                                {
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="ApplicationCreate">Apply Now</a></li>
+
+                                }
                                 <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="ApplicationDetails"> View Application</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="ApplicationList">Applicants List</a></li>
-                                @if (User.IsInRole("Admin"))
+                                @if (await um.IsInRoleAsync(curUser, "Admin") || await um.IsInRoleAsync(curUser, "Professor"))
+                                {
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="ApplicationList">Applicants List</a></li>
+                                }
+                                @if (await um.IsInRoleAsync(curUser, "Admin"))
                                 {
                                     <li><a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="Index">Role Manager</a></li>
                                 }
