@@ -3,7 +3,7 @@
 @inject UserManager<TAUser> um
 @inject RoleManager<IdentityRole> rm
 @{
-    TAUser curUser = await um.GetUserAsync(User);
+    TAUser? curUser = await um.GetUserAsync(User);
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -37,24 +37,31 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">TA</a>
                             <ul class="dropdown-menu">
+                                @if (curUser != null)
+                                {
+                                    <li><p class="dropdown-item">@curUser.Name</p></li>
+                                    <li><hr /></li>
+                                    @if (await um.IsInRoleAsync(curUser, "Applicant"))
+                                    {
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="ApplicationCreate">Apply Now</a></li>
 
-                                <li><p class="dropdown-item">@curUser.Name</p></li>
-                                <li><hr /></li>
-                                @if (await um.IsInRoleAsync(curUser, "Applicant"))
-                                {
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="ApplicationCreate">Apply Now</a></li>
-
+                                    }
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="ApplicationDetails"> View Application</a></li>
+                                    @if (await um.IsInRoleAsync(curUser, "Admin") || await um.IsInRoleAsync(curUser, "Professor"))
+                                    {
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="ApplicationList">Applicants List</a></li>
+                                    }
+                                    @if (await um.IsInRoleAsync(curUser, "Admin"))
+                                    {
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="Index">Role Manager</a></li>
+                                    }
                                 }
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="ApplicationDetails"> View Application</a></li>
-                                @if (await um.IsInRoleAsync(curUser, "Admin") || await um.IsInRoleAsync(curUser, "Professor"))
+                                else
                                 {
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="ApplicationList">Applicants List</a></li>
-                                }
-                                @if (await um.IsInRoleAsync(curUser, "Admin"))
-                                {
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="Index">Role Manager</a></li>
+                                    <li><a class="dropdown-item" asp-area="Identity" asp-page="/Account/Login">Login</a></li>
                                 }
                             </ul>
+
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />

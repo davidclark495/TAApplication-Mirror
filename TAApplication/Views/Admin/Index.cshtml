@@ -10,45 +10,45 @@
 <table id="roleManager" class="table table-striped">
     <thead>
         <tr>
-        <th>User</th>
-        <th>Unid</th>
-        <th>Applicant</th>
-        <th>Professor</th>
-        <th>Admin</th>
-    </tr>
+            <th>User</th>
+            <th>Unid</th>
+            <th>Applicant</th>
+            <th>Professor</th>
+            <th>Admin</th>
+        </tr>
     </thead>
     <tbody>
         @foreach (var user in um.Users)
-    {
-        <tr>
-            <td>@user.Name</td>
-            <td>@String.Format("{0}{1:d7}", "u", user.Unid)</td>
+        {
+            <tr>
+                <td>@user.Name</td>
+                <td>@String.Format("{0}{1:d7}", "u", user.Unid)</td>
 
 
-            @{
-                bool isApplicant = await um.IsInRoleAsync(user, "Applicant");
-                bool isProfessor = await um.IsInRoleAsync(user, "Professor");
-                bool isAdmin = await um.IsInRoleAsync(user, "Admin");
-            }
+                @{
+                    bool isApplicant = await um.IsInRoleAsync(user, "Applicant");
+                    bool isProfessor = await um.IsInRoleAsync(user, "Professor");
+                    bool isAdmin = await um.IsInRoleAsync(user, "Admin");
+                }
 
-            <td><input type="radio" value="isApplicant-@user.Unid" name="role-@user.Unid" checked=@isApplicant></input></td>
-            <td><input type="radio" value="isProfessor-@user.Unid" name="role-@user.Unid" checked=@isProfessor></input></td>
-            <td><input type="radio" value="isAdmin-@user.Unid" name="role-@user.Unid" checked=@isAdmin></input></td>
+                <td><input type="radio" value="isApplicant-@user.Unid" name="role-@user.Unid" onclick="setRole(@user.Unid,'Applicant')" checked=@isApplicant></input></td>
+                <td><input type="radio" value="isProfessor-@user.Unid" name="role-@user.Unid" onclick="setRole(@user.Unid,'Professor')" checked=@isProfessor></input></td>
+                <td><input type="radio" value="isAdmin-@user.Unid" name="role-@user.Unid" onclick="setRole(@user.Unid,'Admin')" checked=@isAdmin></input></td>
 
 
-        </tr>
-    }
+            </tr>
+        }
     </tbody>
 </table>
 
 @section Styles {
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
 }
-@section Scripts {
+    @section Scripts {
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
     <script src="~/js/Admin/AssignRolesPage.js"></script>
     <script type="text/javascript">
-        $( document ).ready(function() {
+        $(document).ready(function () {
             $('#roleManager').datatable({});
         });
     </script>
