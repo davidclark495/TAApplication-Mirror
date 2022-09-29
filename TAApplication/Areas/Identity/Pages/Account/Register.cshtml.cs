@@ -38,6 +38,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using TAApplication.Areas.Identity.Data;
+using TAApplication.Data;
 
 namespace TAApplication.Areas.Identity.Pages.Account
 {
@@ -49,13 +50,15 @@ namespace TAApplication.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<TAUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly ApplicationDbContext _db;
 
         public RegisterModel(
             UserManager<TAUser> userManager,
             IUserStore<TAUser> userStore,
             SignInManager<TAUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            ApplicationDbContext db)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -63,6 +66,7 @@ namespace TAApplication.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _db = db;
         }
 
         /// <summary>
@@ -99,7 +103,7 @@ namespace TAApplication.Areas.Identity.Pages.Account
             [Display(Name = "Name")]
             public string Name { get; set; }
 
-            [Display(Name = "Prefered Name")]
+            [Display(Name = "Preferred Name")]
             public string ReferredTo { get; set; }
 
             [Required]
@@ -134,14 +138,14 @@ namespace TAApplication.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = CreateUser();
 
                 Input.Email = Input.Email.Replace("umail.", ""); // standardize email by removing "umail." 
-                if (await _userManager.FindByEmailAsync(Input.Email) == null)
+                bool emailExist = _db.Users.Any(x => x.Email == Input.Email);
+                if (emailExist)
                 {
-                    //TODO: show an appropriate error message
-                    return LocalRedirect(returnUrl);
+                    return Page();
                 }
+                var user = CreateUser();
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 user.Unid = Int32.Parse(Input.Email.Substring(1, 7));
