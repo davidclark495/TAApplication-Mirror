@@ -1,4 +1,7 @@
-﻿/*
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
+#nullable disable
+/*
 	Author: Robert Davidson
 	Partner: David Clark
 	Date: 09/23/2022
@@ -13,12 +16,9 @@
 
 	File Contents
 
-		TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+		Processes data entered by users on Register.cshtml
+        Creates user with validation on data entry
 */
-
-// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
-#nullable disable
 
 using System;
 using System.Collections.Generic;

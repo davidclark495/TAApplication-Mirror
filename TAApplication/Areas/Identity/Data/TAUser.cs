@@ -13,7 +13,7 @@
 
 	File Contents
 
-		TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+		C# Implementation for database user, inherits from IdentityUser 
 */
 
 

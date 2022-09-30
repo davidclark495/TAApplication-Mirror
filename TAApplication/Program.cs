@@ -13,7 +13,9 @@
 
 	File Contents
 
-		TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+		Initializes and sets up site backend.
+        Registers services.
+        Creates database.
 */
 
 using Microsoft.AspNetCore.Identity;

@@ -13,7 +13,7 @@
 
 	File Contents
 
-		TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+		C# representation of Database. Contains method for seeding users and roles. 
 */
 
 using Microsoft.AspNetCore.Identity;
