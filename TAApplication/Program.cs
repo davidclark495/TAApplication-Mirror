@@ -25,13 +25,19 @@ using TAApplication.Areas.Identity.Services;
 using TAApplication.Data;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using WebPWrecover.Services;
+using Microsoft.Data.SqlClient;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+var conStrBuilder = new SqlConnectionStringBuilder(
+        builder.Configuration.GetConnectionString("DefaultConnection"));
+conStrBuilder.Password = builder.Configuration["DbPassword"];
+var connection = conStrBuilder.ConnectionString;
+
+//var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseSqlServer(connection));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<TAUser>(options => options.SignIn.RequireConfirmedAccount = true)
