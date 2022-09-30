@@ -21,6 +21,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TAApplication.Areas.Identity.Data;
+using TAApplication.Areas.Identity.Services;
 using TAApplication.Data;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using WebPWrecover.Services;
