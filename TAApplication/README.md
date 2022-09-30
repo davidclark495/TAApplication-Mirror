@@ -6,8 +6,8 @@ Course:     CS 4540, University of Utah, School of Computing
 GitHub ID:  rj-davidson
 Partner GitHub ID: davidclark495
 Repo:       https://github.com/uofu-cs4540-fall2022/ps1---applicantlist-flagrantstork
-EC2 name (Robert): 
-EC2 name (David): 
+EC2 name (Robert): https://ec2-54-225-177-240.compute-1.amazonaws.com
+EC2 name (David): https://ec2-52-3-156-123.compute-1.amazonaws.com
 Commit Tag: HW4
 Project:    TA Application
 Copyright:  CS 4540, David Clark and Robert Davidson  - This work may not be copied for use in Academic Coursework.
@@ -66,4 +66,4 @@ Trophy Image - https://www.publicdomainpictures.net/en/view-image.php?image=1634
 
    1. Assignment One: Predicted Hours: 10 Actual Hours: 10
    2. Assignment Two: Predicted Hours: 10 Actual Hours: 8.5
-   3. Assignment Four: Predicted Hours: 10 Actual Hours: 17
+   3. Assignment Four: Predicted Hours: 10 Actual Hours: 18
