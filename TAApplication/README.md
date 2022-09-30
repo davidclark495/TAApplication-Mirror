@@ -24,6 +24,8 @@ and validated.
 We had some techniacal issues, and it took us a while to get going. The assignment took more out of our schedules
 than we had prepared for.
 
+All commits were from one github account as we did all work together on zoom using remote control to switch paired programming roles. Both of us spent equal time driving and navigating.
+
 # Assignment Specific Topics
 
 Our site handles authentication and authorization as expected. Authentication is well handled by the default ASP Core system.
