@@ -34,7 +34,7 @@ namespace TAApplication.Controllers
             _um = um;
             _db = db;
         }
-        public IActionResult Index()
+        public IActionResult Roles()
         {
             return View();
         }
@@ -45,8 +45,9 @@ namespace TAApplication.Controllers
 
             if (user != null)
             {
-                var roles = await _um.GetRolesAsync(user);
-                await _um.RemoveFromRolesAsync(user, roles.ToArray());
+                var roles = (await _um.GetRolesAsync(user)).ToArray();
+                
+                await _um.RemoveFromRolesAsync(user, roles);
                 await _um.AddToRoleAsync(user, role);
             }
         }
