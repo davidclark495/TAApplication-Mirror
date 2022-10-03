@@ -1,0 +1,90 @@
+﻿@page
+@model TAApplication.Views.Home.ApplicationDetailsModel
+
+@*
+  Author:    David Clark
+  Partner:   Robert Davidson
+  Date:      09/02/2022
+  Course:    CS 4540, University of Utah, School of Computing
+  Copyright: CS 4540, David Clark, and Robert Davidson - This work may not be copied for use in Academic Coursework.
+
+
+  I, David Clark, certify that I wrote this code from scratch and did not copy it in part or whole from 
+  another source.  Any references used in the completion of the assignment are cited in my README file.
+  I, Robert Davidson, certify that I wrote this code from scratch and did not copy it in part or whole from 
+  another source.  Any references used in the completion of the assignment are cited in my README file.
+ 
+  File Contents
+ 
+	 Shows an applicant's details, collected via the ApplicationCreate page. Read-only.
+*@
+ <form class="form-floating row g-3" id="applicant-details">
+        <!--First Name-->
+        <div class="col-md-4">
+            <label for="first-name" class="form-label">First Name</label>
+            <input class="form-control" type="text" value="User" aria-label="first name" disabled>
+        </div>
+        <!--Last Name-->
+        <div class="col-md-4">
+            <label for="last-name" class="form-label">Last Name</label>
+            <input class="form-control" type="text" value="0" aria-label="last name" disabled>
+        </div>
+        <!--uID-->
+        <div class="col-md-4">
+            <label for="uid" class="form-label">uID</label>
+            <input class="form-control" type="text" value="u0000000" aria-label="uID" disabled>
+        </div>
+        <!--Phone-->
+        <div class="col-md-4">
+            <label for="phone-num" class="form-label">Phone</label>
+            <input type="text" class="form-control" id="phone-num" value="555-555-5555" disabled>
+        </div>
+        <!--Email-->
+        <div class="col-md-8">
+            <label for="user-email" class="form-label">Email</label>
+            <input type="text" class="form-control" id="user-email" value="u0000000@utah.edu" disabled>
+        </div>
+        <!--Permission to view academic records-->
+        <div class="row g-3" id="academic-records">
+            <!--GPA-->
+            <div class="col-md-2">
+                <label for="gpa" class="form-label">GPA</label>
+                <input type="text" class="form-control" id="gpa" value="4.0" disabled>
+            </div>
+            <!--Graduate student status-->
+            <div class="col-md-3">
+                <label for="enrollment-status" class="form-label">Enrollment Status</label>
+                <input type="text" class="form-control" id="enrollment-status" value="Undergraduate" disabled>
+            </div>
+            <!--Semesters at Utah-->
+            <div class="col-md-3">
+                <label for="semesters-at-school" class="form-label">Semesters at School</label>
+                <input type="text" class="form-control" id="semesters-at-school" value="3" disabled>
+            </div>
+            <!--Area of Study / School-->
+            <div class="col-md-4">
+                <label for="area-of-study" class="form-label">Area of Study</label>
+                <input type="text" class="form-control" id="area-of-study" value="CS - Computer Science" disabled>
+            </div>
+        </div>
+        <!--Courses Interested in tutoring-->
+        <!--Opted to use a Datalist instead of Select tool as it allows the user to type what they're searching for -->
+        <div class="col-md-8">
+            <label for="courses-to-ta" class="form-label">Courses to TA</label>
+            <input class="form-control" id="courses-to-ta" value="CS 1410, CS 2420" disabled>
+        </div>
+        <!--Personal Statement-->
+        <div class="col-md-12">
+            <label for="personal-statement" class="form-label">Personal Statement</label>
+            <textarea class="form-control" id="personal-statement" rows="3" value="Germain gave me a 100% score on PS1 in CS 4540" disabled></textarea>
+        </div>
+        <!--resume / files / download-->
+        <ul class="list-group" id="applicant-files">
+            <li class="list-group-item">JDoe_Resume22.pdf</li>
+            <li class="list-group-item">Cover_Letter.pdf</li>
+            <li class="list-group-item">Recommendation_Kopta.pdf</li>
+        </ul>
+        <div class="col-12">
+            <button class="btn btn-secondary" type="button">Download Applicant Files</button>
+        </div>
+    </form>

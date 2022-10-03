@@ -65,7 +65,7 @@
                                         <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="ApplicationCreate">Apply Now</a></li>
 
                                     }
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="ApplicationDetails"> View Application</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="ApplicationDetails">View Application</a></li>
                                     @if (await um.IsInRoleAsync(curUser, "Admin") || await um.IsInRoleAsync(curUser, "Professor"))
                                     {
                                         <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="ApplicationList">Applicants List</a></li>
@@ -74,6 +74,12 @@
                                     {
                                         <li><a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="Roles">Role Manager</a></li>
                                     }
+
+                                    <li><hr /></li>
+                                    // OLD Views
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="OLD" asp-action="ApplicationCreate">OLD Apply Now</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="OLD" asp-action="ApplicationDetails">OLD View Application</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="OLD" asp-action="ApplicationList">OLD Applicants List</a></li>
                                 }
                                 else
                                 {

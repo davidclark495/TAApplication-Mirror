@@ -1,0 +1,141 @@
+﻿@page
+@model TAApplication.Views.Home.ApplicationCreateModel
+
+@*
+  Author:    David Clark
+  Partner:   Robert Davidson
+  Date:      09/02/2022
+  Course:    CS 4540, University of Utah, School of Computing
+  Copyright: CS 4540, David Clark, and Robert Davidson - This work may not be copied for use in Academic Coursework.
+ 
+  I, David Clark, certify that I wrote this code from scratch and did not copy it in part or whole from 
+  another source.  Any references used in the completion of the assignment are cited in my README file.
+  I, Robert Davidson, certify that I wrote this code from scratch and did not copy it in part or whole from 
+  another source.  Any references used in the completion of the assignment are cited in my README file.
+ 
+  File Contents
+ 
+	 Allows a user to apply for an unspecified position by entering data about themselves.
+*@
+
+	 <form class="form-floating row g-3 needs-validation" id="applicant-details" novalidate>
+        <!--First Name-->
+        <div class="col-md-4">
+            <label for="first-name" class="form-label">First name</label>
+            <input type="text" class="form-control" id="first-name" value="" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <!--Last Name-->
+        <div class="col-md-4">
+            <label for="last-name" class="form-label">Last name</label>
+            <input type="text" class="form-control" id="last-name" value="" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <!--uID-->
+        <div class="col-md-4">
+            <label for="uid" class="form-label">uID</label>
+            <div class="input-group has-validation">
+                <span class="input-group-text" id="inputGroupPrepend">u</span>
+                <input type="text" class="form-control" id="uid" aria-describedby="inputGroupPrepend" placeholder="1234567" required>
+                <div class="invalid-feedback">
+                    Please enter your 7 digit uID.
+                </div>
+            </div>
+        </div>
+        <!--Phone-->
+        <div class="col-md-4">
+            <label for="phone-num" class="form-label">Phone</label>
+            <input type="text" class="form-control" id="phone-num" placeholder="555-555-5555" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <!--Email-->
+        <div class="col-md-8">
+            <label for="user-email" class="form-label">Email</label>
+            <input type="text" class="form-control" id="user-email" value="" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <!--Permission to view academic records-->
+        <div class="col-md-10">
+            <span class="tool-tip-span" data-bs-toggle="tooltip" data-bs-title="Allow the university to automatically populate fields based on uID">
+                <input type="radio" class="btn-check" name="record-input-choice" id="allow-record-access" autocomplete="off" checked>
+                <label class="btn btn-outline-primary" for="allow-record-access">Allow Academic Record Access</label>
+            </span>
+            <input type="radio" class="btn-check" name="record-input-choice" id="manually-input-records" autocomplete="off" checked>
+            <label class="btn btn-outline-secondary" for="manually-input-records">Deny</label>
+        </div>
+        <div class="row g-3" id="academic-records">
+            <!--GPA-->
+            <div class="col-md-2">
+                <label for="gpa" class="form-label">GPA</label>
+                <input type="number" class="form-control" id="gpa" step="0.1" min="1" max="4" placeholder="4.0" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <!--Graduate student status-->
+            <div class="col-md-3">
+                <label for="enrollment-status" class="form-label">Enrollment Status</label>
+                <select class="form-select" id="enrollment-status" aria-label="Enrollment Status">
+                    <option value="1">Undergraduate</option>
+                    <option value="2">Graduate (Masters)</option>
+                    <option value="3">Graduate (Doctoral)</option>
+                    <option value="4">Not currently enrolled</option>
+                </select>
+            </div>
+            <!--Semesters at Utah-->
+            <div class="col-md-3">
+                <label for="semesters-at-school" class="form-label">Semesters at School</label>
+                <input type="number" class="form-control" id="semesters-at-school" step="1" min="1" placeholder="3" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <!--Area of Study / School-->
+            <div class="col-md-4">
+                <label for="area-of-study" class="form-label">Area of Study</label>
+                <select class="form-select" id="area-of-study" aria-label="Area of Study">
+                    <option value="CE">CE - Computer Engineer</option>
+                    <option value="CS">CS - Computer Science</option>
+                    <option value="EE">EE - Electrical Engineering</option>
+                    <option value="MATH">MATH - Math</option>
+                </select>
+            </div>
+        </div>
+        <!--Courses Interested in tutoring-->
+        <!--Opted to use a Datalist instead of Select tool as it allows the user to type what they're searching for -->
+        <div class="col-md-8">
+            <label for="courses-to-ta" class="form-label">Courses to TA</label>
+            <input class="form-control" list="datalistOptions" id="courses-to-ta" placeholder="Type to search courses...">
+            <datalist id="datalistOptions">
+                <option value="CS 1410"/>
+                <option value="CS 2100"/>
+                <option value="CS 2420"/>
+                <option value="CS 3130"/>
+                <option value="CS 3500"/>
+                <option value="CS 3505"/>
+                <option value="CS 3810"/>
+            </datalist>
+        </div>
+        <!--Personal Statement-->
+        <div class="col-md-12">
+            <label for="personal-statement" class="form-label">Personal Statement</label>
+            <textarea class="form-control" id="personal-statement" rows="3"></textarea>
+        </div>
+        <!--Submit resume / files / upload-->
+        <div class="col-md-6">
+            <label for="user-app-files" class="form-label">Resume / Supporting Files</label>
+            <input class="form-control" type="file" id="user-app-files" multiple>
+        </div>
+        <div class="col-12">
+            <button class="btn btn-primary" type="submit">Submit form</button>
+        </div>
+    </form>
+   
