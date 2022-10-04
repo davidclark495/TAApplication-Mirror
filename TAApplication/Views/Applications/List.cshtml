@@ -1,0 +1,90 @@
+﻿@model IEnumerable<TAApplication.Models.Application>
+@using TAApplication.Areas.Identity.Data
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<TAUser> _um
+
+@{
+    ViewData["Title"] = "List";
+}
+@*
+	Author: Robert Davidson
+	Partner: David Clark
+	Date: 10/04/2022
+	Course: CS 4540, University of Utah, School of Computing
+	Copyright: CS 4540, David Clark and Robert Davidson - This work may not be copied for use in Academic Coursework.
+
+	I, David Clark, certify that I wrote this code from scratch and did not copy it in part or whole from
+	another source.  Any references used in the completion of the assignment are cited in my README file.
+
+	I, Robert Davidson, certify that I wrote this code from scratch and did not copy it in part or whole from
+	another source. Any references used in the completion of the assignment are cited in my README file.
+
+	File Contents
+
+		List of TA Applications
+*@
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Applicant.Unid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Applicant.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PursuingDegree)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PursuingDegree)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Program)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GPA)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HoursWanted)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EarlyAvailability)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Applicant.Unid)
+                </td>
+                <td>
+                     <a asp-action="Details">
+                        @Html.DisplayFor(modelItem => item.Applicant.Name)
+                    </a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PursuingDegree)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Program)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GPA)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HoursWanted)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EarlyAvailability)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

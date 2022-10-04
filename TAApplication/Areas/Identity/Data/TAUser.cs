@@ -28,7 +28,7 @@ namespace TAApplication.Areas.Identity.Data
     {
         // TODO: Index IsUnique? How to enforce uniquness on a unid
         [RegularExpression(@"u[0-9]{7}$")] // TODO: Test this regex
-        [Display(Name = "U of U uID")]
+        [Display(Name = "uID")]
         [Required()]
         public int Unid { get; set; }
 

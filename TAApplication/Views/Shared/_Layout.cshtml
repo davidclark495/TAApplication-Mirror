@@ -62,13 +62,13 @@
                                     <li><hr /></li>
                                     @if (await um.IsInRoleAsync(curUser, "Applicant"))
                                     {
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="ApplicationCreate">Apply Now</a></li>
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="Applications" asp-action="Create">Apply Now</a></li>
 
                                     }
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="ApplicationDetails">View Application</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Applications" asp-action="Details">View Application</a></li>
                                     @if (await um.IsInRoleAsync(curUser, "Admin") || await um.IsInRoleAsync(curUser, "Professor"))
                                     {
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="ApplicationList">Applicants List</a></li>
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="Applications" asp-action="List">Applicants List</a></li>
                                     }
                                     @if (await um.IsInRoleAsync(curUser, "Admin"))
                                     {
