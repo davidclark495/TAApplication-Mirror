@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 using TAApplication.Data;
 using TAApplication.Models;
 
 namespace TAApplication.Controllers
 {
+    [Authorize]
     public class ApplicationsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -20,6 +22,14 @@ namespace TAApplication.Controllers
         }
 
         // GET: Applications
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Index()
+        {
+            return View(await _context.Applications.ToListAsync());
+        }
+
+        [Authorize(Roles = "Admin,Professor")]
+        // GET: Applications/List
         public async Task<IActionResult> List()
         {
               return View(await _context.Applications.ToListAsync());

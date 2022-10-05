@@ -23,11 +23,8 @@
 
 		List of TA Applications
 *@
-<h1>Index</h1>
+<h1>Application List</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -54,6 +51,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.EarlyAvailability)
+            </th>
+             <th>
+                @Html.DisplayNameFor(model => model.ModificationDate)
             </th>
         </tr>
     </thead>
@@ -83,6 +83,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.EarlyAvailability)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ModificationDate)
                 </td>
             </tr>
         }
