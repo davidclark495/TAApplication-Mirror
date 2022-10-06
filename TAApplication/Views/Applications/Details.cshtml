@@ -1,5 +1,7 @@
 ﻿@model TAApplication.Models.Application
-
+@using Microsoft.AspNetCore.Identity
+@using TAApplication.Areas.Identity.Data
+@inject UserManager<TAUser> _um;
 @{
     ViewData["Title"] = "Details";
 }
@@ -89,6 +91,15 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.ID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    @{
+        TAUser currUser = await _um.GetUserAsync(User);
+        if (await _um.IsInRoleAsync(currUser, "Admin") || await _um.IsInRoleAsync(currUser, "Professor"))
+        {
+            <a asp-action="Index">Back to List</a>
+        }
+        if (await _um.IsInRoleAsync(currUser, "Applicant"))
+        {
+            <a asp-action="Edit" asp-route-id="@Model?.ID">Edit</a>
+        }
+    }
 </div>

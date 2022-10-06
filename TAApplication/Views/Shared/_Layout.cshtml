@@ -1,9 +1,11 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using TAApplication.Areas.Identity.Data
-@inject UserManager<TAUser> um
-@inject RoleManager<IdentityRole> rm
+@using TAApplication.Data
+@inject UserManager<TAUser> _um
+@inject RoleManager<IdentityRole> _rm
+@inject ApplicationDbContext _db
 @{
-    TAUser? curUser = await um.GetUserAsync(User);
+    TAUser? curUser = await _um.GetUserAsync(User);
 }
 
 @*
@@ -60,17 +62,25 @@
                                 {
                                     <li><p class="dropdown-item">@curUser.Name</p></li>
                                     <li><hr /></li>
-                                    @if (await um.IsInRoleAsync(curUser, "Applicant"))
+                                    @if (await _um.IsInRoleAsync(curUser, "Applicant"))
                                     {
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="Applications" asp-action="Create">Apply Now</a></li>
-
+                                        Application existingApp = _db.Applications
+                                                                        .Where(app => app.Applicant.Id == curUser.Id)
+                                                                        .First();
+                                        if(existingApp == null)
+                                        {
+                                            <li><a class="dropdown-item" asp-area="" asp-controller="Applications" asp-action="Create">Apply Now</a></li>
+                                        } 
+                                        else
+                                        {
+                                            <li><a class="dropdown-item" asp-area="" asp-controller="Applications" asp-action="Details">View Application</a></li>
+                                        }
                                     }
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="Applications" asp-action="Details">View Application</a></li>
-                                    @if (await um.IsInRoleAsync(curUser, "Admin") || await um.IsInRoleAsync(curUser, "Professor"))
+                                    @if (await _um.IsInRoleAsync(curUser, "Admin") || await _um.IsInRoleAsync(curUser, "Professor"))
                                     {
                                         <li><a class="dropdown-item" asp-area="" asp-controller="Applications" asp-action="List">Applicants List</a></li>
                                     }
-                                    @if (await um.IsInRoleAsync(curUser, "Admin"))
+                                    @if (await _um.IsInRoleAsync(curUser, "Admin"))
                                     {
                                         <li><a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="Roles">Role Manager</a></li>
                                     }

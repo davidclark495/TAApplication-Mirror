@@ -30,7 +30,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="PursuingDegree" class="control-label"></label>
-                <select asp-for="PursuingDegree" class="form-control"></select>
+                <select asp-for="PursuingDegree" class="form-control" asp-items="@Html.GetEnumSelectList(typeof(TAApplication.Models.DegreeLevel))"></select>
                 <span asp-validation-for="PursuingDegree" class="text-danger"></span>
             </div>
             <div class="form-group">
