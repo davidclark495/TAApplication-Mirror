@@ -64,16 +64,17 @@
                                     <li><hr /></li>
                                     @if (await _um.IsInRoleAsync(curUser, "Applicant"))
                                     {
-                                        Application existingApp = _db.Applications
+                                        Application? existingApp = _db.Applications
                                                                         .Where(app => app.Applicant.Id == curUser.Id)
-                                                                        .First();
+                                                                        .FirstOrDefault();
                                         if(existingApp == null)
                                         {
                                             <li><a class="dropdown-item" asp-area="" asp-controller="Applications" asp-action="Create">Apply Now</a></li>
                                         } 
                                         else
                                         {
-                                            <li><a class="dropdown-item" asp-area="" asp-controller="Applications" asp-action="Details">View Application</a></li>
+                                            String url = "Applications/Details/" + existingApp.ID;
+                                            <li><a class="dropdown-item" href=@url>View Application</a></li>
                                         }
                                     }
                                     @if (await _um.IsInRoleAsync(curUser, "Admin") || await _um.IsInRoleAsync(curUser, "Professor"))

@@ -64,7 +64,7 @@ namespace TAApplication.Controllers
         public async Task<IActionResult> Create()
         {
             TAUser u = await _um.GetUserAsync(User);
-            Application existingApp = _db.Applications.Where(app => app.Applicant.Id == u.Id).First();
+            Application? existingApp = _db.Applications.Where(app => app.Applicant.Id == u.Id).FirstOrDefault();
             if (existingApp != null)
             {
                 return RedirectToAction("Details", new { id = existingApp.ID });

@@ -81,21 +81,42 @@ namespace TAApplication.Data
             }
             //await um.CreateAsync(new TAUser { Name = "User 2", Unid = 0000002, ReferredTo = "U2", Email = "u0000002@utah.edu", UserName = "u0000002@utah.edu" }, "123ABC!@#def");
             this.SaveChanges();
+        }
 
-            //foreach (TAUser u in um.Users)
-            //{
-            //    await um.AddPasswordAsync(u, "123ABC!@#def");
-            //    string token = await um.GenerateEmailConfirmationTokenAsync(u);
-            //    await um.ConfirmEmailAsync(u, token);
-
-            //    if (u.Unid == 1234567)
-            //        await um.AddToRoleAsync(u, "Admin");
-            //    else if (u.Unid == 7654321)
-            //        await um.AddToRoleAsync(u, "Professor");
-            //    else
-            //        await um.AddToRoleAsync(u, "Applicant");
-            //}
-            //this.SaveChanges();
+        public async Task InitializeApplications(UserManager<TAUser> um)
+        {
+            if (this.Applications.Any<Application>())
+            {
+                return;   // DB has been seeded
+            }
+            TAUser user0 = await um.FindByEmailAsync("u0000000@utah.edu");
+            TAUser user1 = await um.FindByEmailAsync("u0000001@utah.edu");
+            var apps = new Application[]
+            {
+                new Application{PursuingDegree = TAApplication.Models.DegreeLevel.PhD,
+                Program = "CS",
+                GPA = 5.0,
+                HoursWanted = 20,
+                EarlyAvailability = true,
+                SemestersCompletedAtUtah = 400,
+                PersonalStatement = "Yes, I am applicant zero.",
+                TransferSchool = "Harvard Law",
+                LinkedInURL = "https://linkedin.com/BillGates",
+                ResumeFilename = "BillGates_Resume_Fall22.pdf",
+                Applicant = user0},
+                new Application{PursuingDegree = TAApplication.Models.DegreeLevel.BS,
+                Program = "BUS",
+                GPA = 1.0,
+                HoursWanted = 5,
+                EarlyAvailability = false,
+                SemestersCompletedAtUtah = 69,
+                Applicant = user1}
+            };
+            foreach (Application app in apps)
+            {
+                await this.Applications.AddAsync(app);
+            }
+            this.SaveChanges();
         }
 
         /// <summary>
