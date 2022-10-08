@@ -22,84 +22,102 @@
 
 		View details of a TA Application page
 *@
+
+@{
+
+    TAUser applicant = Model.Applicant;
+    applicant = await _um.FindByEmailAsync("u0000000@utah.edu");
+}
 <h1>Details</h1>
 
 <div>
     <h4>Application</h4>
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PursuingDegree)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PursuingDegree)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Program)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Program)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.GPA)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.GPA)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.HoursWanted)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.HoursWanted)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EarlyAvailability)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EarlyAvailability)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SemestersCompletedAtUtah)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SemestersCompletedAtUtah)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PersonalStatement)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PersonalStatement)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TransferSchool)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TransferSchool)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LinkedInURL)
-        </dt>
-        <dd class = "col-sm-10">
+    <form class="form-floating row g-3" id="applicant-details">
+        <!--First Name-->
+        <div class="col-md-4">
+            <label for="name" class="form-label">Name</label>
+            <input class="form-control" type="text" value="@applicant.Name" aria-label="name" disabled>
+        </div>
+        <!--uID-->
+        <div class="col-md-4">
+            <label for="uid" class="form-label">U of U ID</label>
+            <input class="form-control" type="text" value="@applicant.Unid" aria-label="uID" disabled>
+        </div>
+        <!--Email-->
+        <div class="col-md-4">
+            <label for="user-email" class="form-label">Email</label>
+            <input type="text" class="form-control" id="user-email" value="@applicant.Email" disabled>
+        </div>
+        <!--Permission to view academic records-->
+        <div class="row g-3" id="academic-records">
+            <!--GPA-->
+            <div class="col-md-3">
+                <label for="gpa" class="form-label">@Html.DisplayNameFor(model => model.GPA)</label>
+                <input type="text" class="form-control" id="gpa" value=@Html.DisplayFor(model => model.GPA) disabled>
+            </div>
+            <!--Graduate student status-->
+            <div class="col-md-3">
+                <label for="enrollment-status" class="form-label">@Html.DisplayNameFor(model => model.PursuingDegree)</label>
+                <input type="text" class="form-control" id="enrollment-status" value="@Html.DisplayFor(model => model.PursuingDegree)" disabled>
+            </div>
+            <!--Department-->
+            <div class="col-md-6">
+                <label for="area-of-study" class="form-label">@Html.DisplayNameFor(model => model.Program)</label>
+                <input type="text" class="form-control" id="area-of-study" value=@Html.DisplayFor(model => model.Program) disabled>
+            </div>
+
+        </div>
+        <!--Semesters at Utah-->
+        <div class="col-md-3">
+            <label for="semesters-at-school" class="form-label">@Html.DisplayNameFor(model => model.SemestersCompletedAtUtah)</label>
+            <input type="text" class="form-control" id="semesters-at-school" value=@Html.DisplayFor(model => model.SemestersCompletedAtUtah) disabled>
+        </div>
+        <!--Hours Wanted-->
+        <div class="col-md-3">
+            <label for="hours-wanted" class="form-label">@Html.DisplayNameFor(model => model.HoursWanted)</label>
+            <input type="text" class="form-control" id="hours-wanted" value=@Html.DisplayFor(model => model.HoursWanted) disabled>
+        </div>
+        <!--Transfer School-->
+        <div class="col-md-4">
+            <label for="transfer-school" class="form-label">@Html.DisplayNameFor(model => model.TransferSchool)</label>
+            <input type="text" class="form-control" id="transfer-school" value=@Html.DisplayFor(model => model.TransferSchool) disabled>
+        </div>
+        <!--Early Availibility-->
+        <div class="col-md-2 custom-control custom-switch">
+            <label for="early-availability" class="form-label d-block">@Html.DisplayNameFor(model => model.EarlyAvailability)</label>
+            <input type="checkbox" class="custom-control-input form-control-lg" id="early-availability" checked='@Model.EarlyAvailability' disabled>
+        </div>
+        <!--Personal Statement-->
+        <div class="col-md-12">
+            <label for="personal-statement" class="form-label">@Html.DisplayNameFor(model => model.PersonalStatement)</label>
+            <textarea class="form-control" id="personal-statement" rows="3" value=@Html.DisplayFor(model => model.PersonalStatement) disabled></textarea>
+        </div>
+        <!--LinkedInUrl-->
+        <div class="col-md-4">
+            <label for="linkedin-url" class="form-label">@Html.DisplayNameFor(model => model.LinkedInURL)</label>
             @Html.DisplayFor(model => model.LinkedInURL)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ResumeFilename)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ResumeFilename)
-        </dd>
-    </dl>
+        </div>
+        <!--resume / files / download-->
+        <ul class="list-group" id="applicant-files">
+            <li class="list-group-item">@Html.DisplayFor(model => model.ResumeFilename)</li>
+        </ul>
+        @*<div class="col-12">
+            <button class="btn btn-secondary" type="button">@Html.DisplayNameFor(model => model.ResumeFilename)</button>
+        </div>*@
+    </form>
 </div>
-<div>
+<div class="text-center">
     @{
         TAUser currUser = await _um.GetUserAsync(User);
         if (await _um.IsInRoleAsync(currUser, "Admin") || await _um.IsInRoleAsync(currUser, "Professor"))
         {
             <a asp-action="Index">Back to List</a>
         }
+        <br />
         if (await _um.IsInRoleAsync(currUser, "Applicant"))
         {
-            <a asp-action="Edit" asp-route-id="@Model?.ID">Edit</a>
+            <button class="col-md-12 btn btn-outline-info" asp-action="Edit" asp-route-id="@Model?.ID" type="button">Edit</button>
         }
     }
 </div>
