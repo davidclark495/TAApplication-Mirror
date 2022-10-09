@@ -25,65 +25,63 @@
 <h4>Application</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="ID" />
-            <div class="form-group">
-                <label asp-for="PursuingDegree" class="control-label"></label>
-                <select asp-for="PursuingDegree" class="form-control"></select>
-                <span asp-validation-for="PursuingDegree" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Program" class="control-label"></label>
-                <input asp-for="Program" class="form-control" />
-                <span asp-validation-for="Program" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="GPA" class="control-label"></label>
-                <input asp-for="GPA" class="form-control" />
-                <span asp-validation-for="GPA" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="HoursWanted" class="control-label"></label>
-                <input asp-for="HoursWanted" class="form-control" />
-                <span asp-validation-for="HoursWanted" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="EarlyAvailability" /> @Html.DisplayNameFor(model => model.EarlyAvailability)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="SemestersCompletedAtUtah" class="control-label"></label>
-                <input asp-for="SemestersCompletedAtUtah" class="form-control" />
-                <span asp-validation-for="SemestersCompletedAtUtah" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PersonalStatement" class="control-label"></label>
-                <input asp-for="PersonalStatement" class="form-control" />
-                <span asp-validation-for="PersonalStatement" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TransferSchool" class="control-label"></label>
-                <input asp-for="TransferSchool" class="form-control" />
-                <span asp-validation-for="TransferSchool" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LinkedInURL" class="control-label"></label>
-                <input asp-for="LinkedInURL" class="form-control" />
-                <span asp-validation-for="LinkedInURL" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ResumeFilename" class="control-label"></label>
-                <input asp-for="ResumeFilename" class="form-control" />
-                <span asp-validation-for="ResumeFilename" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
+    <form asp-action="Edit" class="form-floating row g-3">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="ID" />
+        <div class="form-group col-md-3">
+            <label asp-for="GPA" class="control-label"></label>
+            <input asp-for="GPA" class="form-control" />
+            <span asp-validation-for="GPA" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-3">
+            <label asp-for="PursuingDegree" class="control-label"></label>
+            <select asp-for="PursuingDegree" class="form-control" asp-items="@Html.GetEnumSelectList(typeof(TAApplication.Models.DegreeLevel))"></select>
+            <span asp-validation-for="PursuingDegree" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label asp-for="Program" class="control-label"></label>
+            <input asp-for="Program" class="form-control" />
+            <span asp-validation-for="Program" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-3">
+            <label asp-for="SemestersCompletedAtUtah" class="control-label"></label>
+            <input asp-for="SemestersCompletedAtUtah" class="form-control" />
+            <span asp-validation-for="SemestersCompletedAtUtah" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-3">
+            <label asp-for="HoursWanted" class="control-label"></label>
+            <input asp-for="HoursWanted" class="form-control" />
+            <span asp-validation-for="HoursWanted" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="TransferSchool" class="control-label"></label>
+            <input asp-for="TransferSchool" class="form-control" />
+            <span asp-validation-for="TransferSchool" class="text-danger"></span>
+        </div>
+        <div class="form-group form-check col-md-2">
+            <label class="form-check-label d-block">
+            </label>
+                <input class="form-check-input " asp-for="EarlyAvailability" /> @Html.DisplayNameFor(model => model.EarlyAvailability)
+        </div>
+        <div class="form-group col-md-12">
+            <label asp-for="PersonalStatement" class="control-label"></label>
+            <input asp-for="PersonalStatement" class="form-control" />
+            <span asp-validation-for="PersonalStatement" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="LinkedInURL" class="control-label"></label>
+            <input asp-for="LinkedInURL" class="form-control" />
+            <span asp-validation-for="LinkedInURL" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ResumeFilename" class="control-label"></label>
+            <input asp-for="ResumeFilename" class="form-control" />
+            <span asp-validation-for="ResumeFilename" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </form>
 </div>
 
 <div>
@@ -91,5 +89,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

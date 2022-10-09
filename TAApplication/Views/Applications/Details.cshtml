@@ -49,25 +49,22 @@
             <label for="user-email" class="form-label">Email</label>
             <input type="text" class="form-control" id="user-email" value="@applicant.Email" disabled>
         </div>
-        <!--Permission to view academic records-->
-        <div class="row g-3" id="academic-records">
-            <!--GPA-->
-            <div class="col-md-3">
-                <label for="gpa" class="form-label">@Html.DisplayNameFor(model => model.GPA)</label>
-                <input type="text" class="form-control" id="gpa" value=@Html.DisplayFor(model => model.GPA) disabled>
-            </div>
-            <!--Graduate student status-->
-            <div class="col-md-3">
-                <label for="enrollment-status" class="form-label">@Html.DisplayNameFor(model => model.PursuingDegree)</label>
-                <input type="text" class="form-control" id="enrollment-status" value="@Html.DisplayFor(model => model.PursuingDegree)" disabled>
-            </div>
-            <!--Department-->
-            <div class="col-md-6">
-                <label for="area-of-study" class="form-label">@Html.DisplayNameFor(model => model.Program)</label>
-                <input type="text" class="form-control" id="area-of-study" value=@Html.DisplayFor(model => model.Program) disabled>
-            </div>
-
+        <!--GPA-->
+        <div class="col-md-3">
+            <label for="gpa" class="form-label">@Html.DisplayNameFor(model => model.GPA)</label>
+            <input type="text" class="form-control" id="gpa" value=@Html.DisplayFor(model => model.GPA) disabled>
         </div>
+        <!--Graduate student status-->
+        <div class="col-md-3">
+            <label for="enrollment-status" class="form-label">@Html.DisplayNameFor(model => model.PursuingDegree)</label>
+            <input type="text" class="form-control" id="enrollment-status" value="@Html.DisplayFor(model => model.PursuingDegree)" disabled>
+        </div>
+        <!--Department-->
+        <div class="col-md-6">
+            <label for="area-of-study" class="form-label">@Html.DisplayNameFor(model => model.Program)</label>
+            <input type="text" class="form-control" id="area-of-study" value=@Html.DisplayFor(model => model.Program) disabled>
+        </div>
+
         <!--Semesters at Utah-->
         <div class="col-md-3">
             <label for="semesters-at-school" class="form-label">@Html.DisplayNameFor(model => model.SemestersCompletedAtUtah)</label>
@@ -103,7 +100,7 @@
             <li class="list-group-item">@Html.DisplayFor(model => model.ResumeFilename)</li>
         </ul>
         @*<div class="col-12">
-            <button class="btn btn-secondary" type="button">@Html.DisplayNameFor(model => model.ResumeFilename)</button>
+        <button class="btn btn-secondary" type="button">@Html.DisplayNameFor(model => model.ResumeFilename)</button>
         </div>*@
     </form>
 </div>
@@ -117,7 +114,9 @@
         <br />
         if (await _um.IsInRoleAsync(currUser, "Applicant"))
         {
-            <button class="col-md-12 btn btn-outline-info" asp-action="Edit" asp-route-id="@Model?.ID" type="button">Edit</button>
+            <a class="col-md-12 btn btn-outline-info" asp-action="Edit" asp-route-id="@Model?.ID" type="button">
+                Edit
+            </a>
         }
     }
 </div>
