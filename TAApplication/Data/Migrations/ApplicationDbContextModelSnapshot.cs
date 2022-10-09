@@ -307,7 +307,7 @@ namespace TAApplication.Data.Migrations
 
                     b.HasIndex("ApplicantId");
 
-                    b.ToTable("Applications");
+                    b.ToTable("Applications", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

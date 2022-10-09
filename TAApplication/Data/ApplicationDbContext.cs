@@ -93,24 +93,30 @@ namespace TAApplication.Data
             TAUser user1 = await um.FindByEmailAsync("u0000001@utah.edu");
             var apps = new Application[]
             {
-                new Application{PursuingDegree = TAApplication.Models.DegreeLevel.PhD,
-                Program = "CS",
-                GPA = 5.0,
-                HoursWanted = 20,
-                EarlyAvailability = true,
-                SemestersCompletedAtUtah = 400,
-                PersonalStatement = "Yes, I am applicant zero.",
-                TransferSchool = "Harvard Law",
-                LinkedInURL = "https://linkedin.com/BillGates",
-                ResumeFilename = "BillGates_Resume_Fall22.pdf",
-                Applicant = user0},
-                new Application{PursuingDegree = TAApplication.Models.DegreeLevel.BS,
-                Program = "BUS",
-                GPA = 1.0,
-                HoursWanted = 5,
-                EarlyAvailability = false,
-                SemestersCompletedAtUtah = 69,
-                Applicant = user1}
+                new Application
+                {
+                    PursuingDegree = TAApplication.Models.DegreeLevel.PhD,
+                    Program = "CS",
+                    GPA = 5.0,
+                    HoursWanted = 20,
+                    EarlyAvailability = true,
+                    SemestersCompletedAtUtah = 400,
+                    PersonalStatement = "Yes, I am applicant zero.",
+                    TransferSchool = "Harvard Law",
+                    LinkedInURL = "https://linkedin.com/BillGates",
+                    ResumeFilename = "BillGates_Resume_Fall22.pdf",
+                    Applicant = user0
+                },
+                new Application
+                {
+                    PursuingDegree = TAApplication.Models.DegreeLevel.BS,
+                    Program = "BUS",
+                    GPA = 1.0,
+                    HoursWanted = 5,
+                    EarlyAvailability = false,
+                    SemestersCompletedAtUtah = 69,
+                    Applicant = user1
+                }
             };
             foreach (Application app in apps)
             {

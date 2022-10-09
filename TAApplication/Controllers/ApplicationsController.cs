@@ -138,11 +138,11 @@ namespace TAApplication.Controllers
                                            s => s.GPA,
                                            s => s.HoursWanted,
                                            s => s.EarlyAvailability,
-                                           s => s.SemestersCompletedAtUtah,
+                                           s => s.SemestersCompletedAtUtah/*,
                                            s => s.PersonalStatement,
                                            s => s.TransferSchool,
                                            s => s.LinkedInURL,
-                                           s => s.ResumeFilename
+                                           s => s.ResumeFilename*/
                                            ))
                 {
                     try {
