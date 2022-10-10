@@ -64,7 +64,7 @@ namespace TAApplication.Controllers
         public async Task<IActionResult> Create()
         {
             TAUser u = await _um.GetUserAsync(User);
-            Application? existingApp = _db.Applications.Where(app => app.Applicant.Id == u.Id).FirstOrDefault();
+            Application? existingApp = _db.Applications.Where(app => app.TAUser.Id == u.Id).FirstOrDefault();
             if (existingApp != null)
             {
                 return RedirectToAction("Details", new { id = existingApp.ID });
@@ -87,7 +87,7 @@ namespace TAApplication.Controllers
                 ModelState.Remove("ModifiedBy");
                 if (ModelState.IsValid)
                 {
-                    application.Applicant = await _um.GetUserAsync(User);
+                    application.TAUser = await _um.GetUserAsync(User);
                     _db.Add(application);
                     await _db.SaveChangesAsync();
                     return RedirectToAction("Details", new { id = application.ID });
@@ -128,7 +128,7 @@ namespace TAApplication.Controllers
             if (id == null) { return BadRequest(); }
             var applicationToUpdate = _db.Applications
                 .Where(o => o.ID == id)
-                .Include(o => o.Applicant)
+                .Include(o => o.TAUser)
                 .FirstOrDefault();
             if (applicationToUpdate != null)
             {
@@ -177,7 +177,7 @@ namespace TAApplication.Controllers
 
             TAUser currUser = await _um.GetUserAsync(User);
             bool userIsAdmin = await _um.IsInRoleAsync(currUser, "Admin");
-            if (!userIsAdmin && currUser.Id != application.Applicant.Id)
+            if (!userIsAdmin && currUser.Id != application.TAUser.Id)
             {
                 return BadRequest(new {message = "You don't own this."});
             }
@@ -199,7 +199,7 @@ namespace TAApplication.Controllers
 
             TAUser currUser = await _um.GetUserAsync(User);
             bool userIsAdmin = await _um.IsInRoleAsync(currUser, "Admin");
-            if (!userIsAdmin && currUser.Id != application.Applicant.Id)
+            if (!userIsAdmin && currUser.Id != application.TAUser.Id)
             {
                 return BadRequest(new { message = "You don't own this." });
             }

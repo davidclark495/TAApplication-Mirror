@@ -24,9 +24,8 @@
 *@
 
 @{
-
-    TAUser applicant = Model.Applicant;
-    applicant = await _um.FindByEmailAsync("u0000000@utah.edu");
+    string Id = Model.TAUserId;
+    TAUser applicant = await _um.FindByIdAsync(Id);
 }
 <h1>Details</h1>
 
@@ -52,7 +51,7 @@
         <!--GPA-->
         <div class="col-md-3">
             <label for="gpa" class="form-label">@Html.DisplayNameFor(model => model.GPA)</label>
-            <input type="text" class="form-control" id="gpa" value=@Html.DisplayFor(model => model.GPA) disabled>
+            <input type="text" class="form-control" id="gpa" value='@Html.DisplayFor(model => model.GPA)' disabled>
         </div>
         <!--Graduate student status-->
         <div class="col-md-3">
@@ -62,23 +61,23 @@
         <!--Department-->
         <div class="col-md-6">
             <label for="area-of-study" class="form-label">@Html.DisplayNameFor(model => model.Program)</label>
-            <input type="text" class="form-control" id="area-of-study" value=@Html.DisplayFor(model => model.Program) disabled>
+            <input type="text" class="form-control" id="area-of-study" value='@Html.DisplayFor(model => model.Program)' disabled>
         </div>
 
         <!--Semesters at Utah-->
         <div class="col-md-3">
             <label for="semesters-at-school" class="form-label">@Html.DisplayNameFor(model => model.SemestersCompletedAtUtah)</label>
-            <input type="text" class="form-control" id="semesters-at-school" value=@Html.DisplayFor(model => model.SemestersCompletedAtUtah) disabled>
+            <input type="text" class="form-control" id="semesters-at-school" value='@Html.DisplayFor(model => model.SemestersCompletedAtUtah)' disabled>
         </div>
         <!--Hours Wanted-->
         <div class="col-md-3">
             <label for="hours-wanted" class="form-label">@Html.DisplayNameFor(model => model.HoursWanted)</label>
-            <input type="text" class="form-control" id="hours-wanted" value=@Html.DisplayFor(model => model.HoursWanted) disabled>
+            <input type="text" class="form-control" id="hours-wanted" value='@Html.DisplayFor(model => model.HoursWanted)' disabled>
         </div>
         <!--Transfer School-->
         <div class="col-md-4">
             <label for="transfer-school" class="form-label">@Html.DisplayNameFor(model => model.TransferSchool)</label>
-            <input type="text" class="form-control" id="transfer-school" value=@Html.DisplayFor(model => model.TransferSchool) disabled>
+            <input type="text" class="form-control" id="transfer-school" value='@Html.DisplayFor(model => model.TransferSchool)' disabled>
         </div>
         <!--Early Availibility-->
         <div class="col-md-2 custom-control custom-switch">
@@ -88,7 +87,7 @@
         <!--Personal Statement-->
         <div class="col-md-12">
             <label for="personal-statement" class="form-label">@Html.DisplayNameFor(model => model.PersonalStatement)</label>
-            <textarea class="form-control" id="personal-statement" rows="3" value=@Html.DisplayFor(model => model.PersonalStatement) disabled></textarea>
+            <textarea class="form-control" id="personal-statement" rows="3" disabled>@Html.DisplayFor(model => model.PersonalStatement)</textarea>
         </div>
         <!--LinkedInUrl-->
         <div class="col-md-4">

@@ -13,7 +13,9 @@
  File Contents
 	This is the C# model for Applications
  */
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using TAApplication.Areas.Identity.Data;
 
 namespace TAApplication.Models
@@ -72,6 +74,12 @@ namespace TAApplication.Models
 
         // Navigation Properties
         [Required]
-        public TAUser Applicant { get; set; } = null!;
+        [ForeignKey("TAUser")]
+        public string TAUserId {get; set;}
+
+        // the TAUser (applicant) who owns this application
+        [Required]
+        public TAUser TAUser { get; set; } = null!;
+
     }
 }

@@ -67,7 +67,7 @@
                             @if (await _um.IsInRoleAsync(curUser, "Applicant"))
                             {
                                 Application? existingApp = _db.Applications
-                                                                    .Where(app => app.Applicant.Id == curUser.Id)
+                                                                    .Where(app => app.TAUser.Id == curUser.Id)
                                                                     .FirstOrDefault();
                                 if (existingApp == null)
                                 {
@@ -97,7 +97,7 @@
                                     <li><a class="dropdown-item" asp-area="" asp-controller="Applications" asp-action="List">Application List</a></li>
                                     {
                                         Application? app0 = _db.Applications
-                                                                        .Where(app => app.Applicant.Unid == 0)
+                                                                        .Where(app => app.TAUser.Unid == 0)
                                                                         .FirstOrDefault();
                                         String app0URL = "/Applications/Details/" + app0.ID;
                                         <li><a class="text-dark dropdown-item" href=@app0URL>View Application</a></li>

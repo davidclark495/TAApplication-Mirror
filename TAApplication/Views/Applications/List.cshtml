@@ -29,10 +29,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Applicant.Unid)
+                @Html.DisplayNameFor(model => model.TAUser.Unid)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Applicant.Name)
+                @Html.DisplayNameFor(model => model.TAUser.Name)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.PursuingDegree)
@@ -57,14 +57,17 @@
     <tbody>
         @foreach (var item in Model)
         {
+            string Id = item.TAUserId;
+            string url = String.Concat("/Applications/Details/", item.ID);
+            TAUser applicant = await _um.FindByIdAsync(Id);
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Applicant.Unid)
+                    @String.Format("u{0:0000000}", applicant.Unid)
                 </td>
                 <td>
-                     <a asp-action="Details">
-                        @Html.DisplayFor(modelItem => item.Applicant.Name)
-                    </a>
+                     <a href='@url'>
+                        @applicant.Name
+                     </a>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.PursuingDegree)

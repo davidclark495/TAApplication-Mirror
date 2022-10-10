@@ -105,7 +105,7 @@ namespace TAApplication.Data
                     TransferSchool = "Harvard Law",
                     LinkedInURL = "https://linkedin.com/BillGates",
                     ResumeFilename = "BillGates_Resume_Fall22.pdf",
-                    Applicant = user0
+                    TAUser = user0
                 },
                 new Application
                 {
@@ -115,7 +115,7 @@ namespace TAApplication.Data
                     HoursWanted = 5,
                     EarlyAvailability = false,
                     SemestersCompletedAtUtah = 69,
-                    Applicant = user1
+                    TAUser = user1
                 }
             };
             foreach (Application app in apps)

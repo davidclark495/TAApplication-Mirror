@@ -247,10 +247,6 @@ namespace TAApplication.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
-                    b.Property<string>("ApplicantId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("CreatedBy")
                         .IsRequired()
                         .HasMaxLength(150)
@@ -299,13 +295,17 @@ namespace TAApplication.Data.Migrations
                     b.Property<int>("SemestersCompletedAtUtah")
                         .HasColumnType("int");
 
+                    b.Property<string>("TAUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("TransferSchool")
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("ApplicantId");
+                    b.HasIndex("TAUserId");
 
                     b.ToTable("Applications", (string)null);
                 });
@@ -363,13 +363,13 @@ namespace TAApplication.Data.Migrations
 
             modelBuilder.Entity("TAApplication.Models.Application", b =>
                 {
-                    b.HasOne("TAApplication.Areas.Identity.Data.TAUser", "Applicant")
+                    b.HasOne("TAApplication.Areas.Identity.Data.TAUser", "TAUser")
                         .WithMany()
-                        .HasForeignKey("ApplicantId")
+                        .HasForeignKey("TAUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Applicant");
+                    b.Navigation("TAUser");
                 });
 #pragma warning restore 612, 618
         }
