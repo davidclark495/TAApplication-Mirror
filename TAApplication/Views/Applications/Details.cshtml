@@ -108,14 +108,14 @@
         TAUser currUser = await _um.GetUserAsync(User);
         if (await _um.IsInRoleAsync(currUser, "Admin") || await _um.IsInRoleAsync(currUser, "Professor"))
         {
-            <a asp-action="Index">Back to List</a>
+            <br />
+            <a class="col-md-12 btn btn-secondary" asp-action="List">Back to List</a>
         }
-        <br />
+
         if (await _um.IsInRoleAsync(currUser, "Applicant"))
         {
-            <a class="col-md-12 btn btn-outline-info" asp-action="Edit" asp-route-id="@Model?.ID" type="button">
-                Edit
-            </a>
+            <br />
+            <a class="col-md-12 btn btn-secondary" asp-action="Edit" asp-route-id="@Model?.ID" type="button">Edit</a>
         }
     }
 </div>

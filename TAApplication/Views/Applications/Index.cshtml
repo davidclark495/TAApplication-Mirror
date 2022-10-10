@@ -1,4 +1,6 @@
-﻿@*
+﻿@using TAApplication.Data
+@inject ApplicationDbContext _db
+@*
 	Author: Robert Davidson
 	Partner: David Clark
 	Date: 10/04/2022
@@ -22,9 +24,14 @@
 }
 <h1>Index</h1>
 
-@{
-	int numApplications;
-	float avgGPA;
-}
-<p>Num Applications: </p>
-<p>Avg GPA: </p>
+<form asp-action="Edit" class="form-floating row g-3">
+    <div class="col-md-4">
+        <label class="form-label">Number of Applications</label>
+        <input class="form-control" type="text" value="@_db.Applications.Count()" aria-label="Number of Applications" disabled>
+
+        <label class="form-label">Average GPA</label>
+        <input class="form-control" type="text" value="@_db.Applications.Average(a => a.GPA)" aria-label="Average GPA" disabled>
+        <br />
+        <a class="btn btn-secondary" asp-action="List">View Application List</a>
+    </div>
+</form>
