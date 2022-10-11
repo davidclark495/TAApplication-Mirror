@@ -11,6 +11,7 @@ using TAApplication.Models;
 using System.Data;
 using Microsoft.AspNetCore.Identity;
 using TAApplication.Areas.Identity.Data;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace TAApplication.Controllers
 {
@@ -101,6 +102,59 @@ namespace TAApplication.Controllers
             return View(application);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> FileUpload(List<IFormFile> files, string category, int applicationID)
+        {
+            try
+            {
+                category = category.ToUpper();
+                // (1) check for valid category (resume/photo) and application ID
+                Application? app = _db.Applications.Where(a => a.ID == applicationID).FirstOrDefault();
+                if (app == null)
+                {
+                    return BadRequest(new { message = "Application not found." });
+                }
+                if (category != "RESUME" && category != "IMAGE")
+                {
+                    ViewData["ErrorMessage"] = "File type not supported. Please try again.";
+                    return View("Details", applicationID);
+                }
+                // (2) check that current user _owns_ application
+                TAUser applicant = await _um.GetUserAsync(User);
+                if ( applicant.Id != app.TAUserId)
+                {
+                    ViewData["ErrorMessage"] = "Not authorized to modify this application.";
+                    return View("Details", applicationID);
+                }
+                // (3) check that only one file has been submitted
+                if (files.Count != 1)
+                {
+                    ViewData["ErrorMessage"] = "One file at a time please.";
+                    return View("Details", applicationID);
+                }
+                // (4) check that the file size is less than, say, 10 million bytes
+                // (5) check that the file size is greater than 0
+                if (files[0].Length > 10000000 || files[0].Length < 0)
+                {
+                    ViewData["ErrorMessage"] = "Files must be less than 10 megabytes.";
+                    return View("Details", applicationID);
+                }
+                // (6) check that resumes end with .pdf and images end with .png (or other image extensions)
+                string fileName = files[0].FileName.ToLower();
+                if (!(fileName.EndsWith(".pdf") && category == "RESUME") && !(fileName.EndsWith(".png") && category == "IMAGE"))
+                {
+                    ViewData["ErrorMessage"] = "File type not supported. Please try again.";
+                    return View("Details", applicationID);
+                }
+
+                // TODO WRITE METHOD
+                return null; // TODO DELETE
+            }
+            catch
+            {
+                return View("Something went horribly wrong!!");
+            }
+        }
 
 
         // GET: Applications/Edit/5
@@ -145,7 +199,8 @@ namespace TAApplication.Controllers
                                            s => s.ResumeFilename*/
                                            ))
                 {
-                    try {
+                    try
+                    {
                         _db.SaveChanges();
                         return RedirectToAction("Details", new { id = applicationToUpdate.ID });
                     }
@@ -179,7 +234,7 @@ namespace TAApplication.Controllers
             bool userIsAdmin = await _um.IsInRoleAsync(currUser, "Admin");
             if (!userIsAdmin && currUser.Id != application.TAUser.Id)
             {
-                return BadRequest(new {message = "You don't own this."});
+                return BadRequest(new { message = "You don't own this." });
             }
 
             return View(application);
