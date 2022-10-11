@@ -27,10 +27,13 @@
     string Id = Model.TAUserId;
     TAUser applicant = await _um.FindByIdAsync(Id);
 }
-<h1>Details</h1>
 
+<div >
+    <h4 class="float-start">@applicant.Name</h4>
+    <h4 class="float-end">@String.Format("u{0:0000000}", applicant.Unid)</h4>
+    <div class="clearfix"></div>
+</div>
 <div>
-    <h4>Application</h4>
     <hr />
     <form class="form-floating row g-3" id="applicant-details">
         <!--First Name-->
@@ -93,15 +96,34 @@
         <div class="col-md-4">
             <label for="linkedin-url" class="form-label">@Html.DisplayNameFor(model => model.LinkedInURL)</label>
             @Html.DisplayFor(model => model.LinkedInURL)
-        </div>
-        <!--resume / files / download-->
-        <ul class="list-group" id="applicant-files">
-            <li class="list-group-item">@Html.DisplayFor(model => model.ResumeFilename)</li>
-        </ul>
+        
         @*<div class="col-12">
         <button class="btn btn-secondary" type="button">@Html.DisplayNameFor(model => model.ResumeFilename)</button>
         </div>*@
     </form>
+</div>
+<!--resume / files / download-->
+<br />
+<ul class="list-group" id="applicant-files">
+    <li class="list-group-item"><a href="/uploads/@Model.ResumeFilename">@Model.ResumeFilename</a></li>
+</ul>
+@if (await _um.IsInRoleAsync(await _um.GetUserAsync(User), "Applicant"))
+{
+    <p>@ViewData["ErrorMessage"]</p>
+    <form method="post"
+      enctype="multipart/form-data"
+      asp-controller="Applications"
+      asp-action="FileUpload">
+
+        <div class="col-md-12 btn-group" role="group">
+            <input class="col-md-8" type="file" name="file" multiple />
+            <input hidden name="category" value="RESUME" />
+            <input hidden name="applicationID" value="@Model.ID" />
+            <br />
+            <input class="btn btn-primary col-md-4" type="submit" value="Upload PDF Resume" />
+        </div>
+    </form>
+}
 </div>
 <div class="text-center">
     @{

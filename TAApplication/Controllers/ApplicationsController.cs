@@ -20,11 +20,13 @@ namespace TAApplication.Controllers
     {
         private readonly ApplicationDbContext _db;
         private readonly UserManager<TAUser> _um;
+        private readonly IConfiguration _configuration;
 
-        public ApplicationsController(ApplicationDbContext db, UserManager<TAUser> um)
+        public ApplicationsController(ApplicationDbContext db, UserManager<TAUser> um, IConfiguration config)
         {
             _db = db;
             _um = um;
+            _configuration = config;
         }
 
         // GET: Applications
@@ -102,6 +104,7 @@ namespace TAApplication.Controllers
             return View(application);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> FileUpload(List<IFormFile> files, string category, int applicationID)
         {
@@ -147,12 +150,31 @@ namespace TAApplication.Controllers
                     return View("Details", applicationID);
                 }
 
-                // TODO WRITE METHOD
-                return null; // TODO DELETE
+                // Actually handle the file //
+                // rename the file
+                string newName = Path.GetRandomFileName().Replace(".", "");
+                // store file in filesystem
+                string path = Path.Combine(_configuration["FilePath"], newName);
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await files[0].CopyToAsync(stream);
+                }
+                // store filename in database
+                if(category == "RESUME")
+                {
+                    app.ResumeFilename = path;
+                }
+                else if (category == "IMAGE")
+                {// field doesn't currently exist, could be added in future
+
+                }
+                _db.SaveChanges();
+
+                return View("Details", applicationID); 
             }
             catch
             {
-                return View("Something went horribly wrong!!");
+                return BadRequest(new { message = "How did you get here?" });
             }
         }
 
