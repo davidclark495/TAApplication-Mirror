@@ -120,39 +120,40 @@ namespace TAApplication.Controllers
                 if (category != "RESUME" && category != "IMAGE")
                 {
                     ViewData["ErrorMessage"] = "File type not supported. Please try again.";
-                    return View("Details", applicationID);
+                    return View("Details", app);
                 }
                 // (2) check that current user _owns_ application
                 TAUser applicant = await _um.GetUserAsync(User);
                 if ( applicant.Id != app.TAUserId)
                 {
                     ViewData["ErrorMessage"] = "Not authorized to modify this application.";
-                    return View("Details", applicationID);
+                    return View("Details", app);
                 }
                 // (3) check that only one file has been submitted
                 if (files.Count != 1)
                 {
                     ViewData["ErrorMessage"] = "One file at a time please.";
-                    return View("Details", applicationID);
+                    return View("Details", app);
                 }
                 // (4) check that the file size is less than, say, 10 million bytes
                 // (5) check that the file size is greater than 0
                 if (files[0].Length > 10000000 || files[0].Length < 0)
                 {
                     ViewData["ErrorMessage"] = "Files must be less than 10 megabytes.";
-                    return View("Details", applicationID);
+                    return View("Details", app);
                 }
                 // (6) check that resumes end with .pdf and images end with .png (or other image extensions)
                 string fileName = files[0].FileName.ToLower();
+                string fileExt = Path.GetExtension(fileName);
                 if (!(fileName.EndsWith(".pdf") && category == "RESUME") && !(fileName.EndsWith(".png") && category == "IMAGE"))
                 {
                     ViewData["ErrorMessage"] = "File type not supported. Please try again.";
-                    return View("Details", applicationID);
+                    return View("Details", app);
                 }
 
                 // Actually handle the file //
                 // rename the file
-                string newName = Path.GetRandomFileName().Replace(".", "");
+                string newName = Path.GetRandomFileName().Replace(".", "") + fileExt;
                 // store file in filesystem
                 string path = Path.Combine(_configuration["FilePath"], newName);
                 using (var stream = new FileStream(path, FileMode.Create))
@@ -162,7 +163,7 @@ namespace TAApplication.Controllers
                 // store filename in database
                 if(category == "RESUME")
                 {
-                    app.ResumeFilename = path;
+                    app.ResumeFilename = newName;
                 }
                 else if (category == "IMAGE")
                 {// field doesn't currently exist, could be added in future
@@ -170,10 +171,12 @@ namespace TAApplication.Controllers
                 }
                 _db.SaveChanges();
 
-                return View("Details", applicationID); 
+                return View("Details", app); 
             }
-            catch
+            catch (Exception ex)
             {
+                //Console.WriteLine(ex.ToString());
+                //return View("Details", app);
                 return BadRequest(new { message = "How did you get here?" });
             }
         }
