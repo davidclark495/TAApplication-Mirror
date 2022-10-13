@@ -28,7 +28,13 @@
     TAUser applicant = await _um.FindByIdAsync(Id);
 }
 
-<div >
+<div>
+    @{
+        if (Model.Picture != null)
+        {
+            <img src="/uploads/@Model.Picture" alt="Applicant Picture" />
+        }
+    }
     <h4 class="float-start">@applicant.Name</h4>
     <h4 class="float-end">@String.Format("u{0:0000000}", applicant.Unid)</h4>
     <div class="clearfix"></div>
@@ -96,10 +102,10 @@
         <div class="col-md-4">
             <label for="linkedin-url" class="form-label">@Html.DisplayNameFor(model => model.LinkedInURL)</label>
             @Html.DisplayFor(model => model.LinkedInURL)
-        
-        @*<div class="col-12">
-        <button class="btn btn-secondary" type="button">@Html.DisplayNameFor(model => model.ResumeFilename)</button>
-        </div>*@
+
+            @*<div class="col-12">
+            <button class="btn btn-secondary" type="button">@Html.DisplayNameFor(model => model.ResumeFilename)</button>
+            </div>*@
     </form>
 </div>
 <!--resume / files / download-->
@@ -116,11 +122,25 @@
       asp-action="FileUpload">
 
         <div class="col-md-12 btn-group" role="group">
-            <input class="col-md-8" type="file" name="files" accept=".pdf"/>
+            <input class="col-md-8" type="file" name="files" accept=".pdf" />
             <input hidden name="category" value="RESUME" />
             <input hidden name="applicationID" value="@Model.ID" />
             <br />
             <input class="btn btn-primary col-md-4" type="submit" value="Upload PDF Resume" />
+        </div>
+    </form>
+
+    <form method="post"
+      enctype="multipart/form-data"
+      asp-controller="Applications"
+      asp-action="FileUpload">
+
+        <div class="col-md-12 btn-group" role="group">
+            <input class="col-md-8" type="file" name="files" accept=".png, .jpg, .jpeg, .gif" />
+            <input hidden name="category" value="IMAGE" />
+            <input hidden name="applicationID" value="@Model.ID" />
+            <br />
+            <input class="btn btn-primary col-md-4" type="submit" value="Upload Applicant Photo" />
         </div>
     </form>
 }

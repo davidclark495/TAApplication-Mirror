@@ -72,10 +72,14 @@ namespace TAApplication.Models
         [Display(Name = "Upload Resume", ShortName = "Resume", Prompt = "", Description = "Applicant's resume")]
         public String? ResumeFilename { get; set; }
 
+        [StringLength(300)]
+        [Display(Name = "Applicant Picture", ShortName = "Headshot", Prompt = "", Description = "Applicant's Picture")]
+        public String? Picture { get; set; }
+
         // Navigation Properties
         [Required]
         [ForeignKey("TAUser")]
-        public string TAUserId {get; set;}
+        public string TAUserId { get; set; }
 
         // the TAUser (applicant) who owns this application
         [Required]

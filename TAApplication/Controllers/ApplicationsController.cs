@@ -145,7 +145,9 @@ namespace TAApplication.Controllers
                 // (6) check that resumes end with .pdf and images end with .png (or other image extensions)
                 string fileName = files[0].FileName.ToLower();
                 string fileExt = Path.GetExtension(fileName);
-                if (!(fileName.EndsWith(".pdf") && category == "RESUME") && !(fileName.EndsWith(".png") && category == "IMAGE"))
+                bool isValidImageType = (fileName.EndsWith(".png") || fileName.EndsWith(".jpg") || fileName.EndsWith(".jpeg") || fileName.EndsWith(".gif")) && category == "IMAGE";
+                bool isValidResumeType = fileName.EndsWith(".pdf") && category == "RESUME";
+                if (!isValidResumeType && !isValidImageType)
                 {
                     ViewData["ErrorMessage"] = "File type not supported. Please try again.";
                     return View("Details", app);
@@ -167,7 +169,7 @@ namespace TAApplication.Controllers
                 }
                 else if (category == "IMAGE")
                 {// field doesn't currently exist, could be added in future
-
+                    app.Picture = newName;
                 }
                 _db.SaveChanges();
 
