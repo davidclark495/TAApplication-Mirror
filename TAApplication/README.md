@@ -26,6 +26,8 @@ Applicants can upload resumes (.pdf) and images (.png, .jpg, .gif).
 
 Apparently we are a little slower than we thought, this took us a while.
 
+The Admin is not permmitted to edit Applications.
+
 All commits were from one github account as we did all work together on zoom using remote control to switch paired programming roles. Both of us spent equal time driving and navigating.
 
 # file / Image Uploads
@@ -48,7 +50,6 @@ and second, in updates to certain ApplicationDbContext methods. The second part 
 slipping in a "AddTimestamps()" call before actually saving changes. The new AddTimestamps() function iterates through
 all the data objects that have been touched and checks if any inherit the ModificationTracking model class; if any do,
 their fields are updated, and the database is allowed to resume as normal.
-
 
 # Consulted Peers:
 
