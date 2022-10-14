@@ -2,6 +2,7 @@
 @using TAApplication.Areas.Identity.Data
 @using Microsoft.AspNetCore.Identity
 @inject UserManager<TAUser> _um
+@inject IConfiguration _config
 
 @{
     ViewData["Title"] = "List";
@@ -28,6 +29,9 @@
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Picture)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.TAUser.Unid)
             </th>
@@ -61,6 +65,17 @@
             string url = String.Concat("/Applications/Details/", item.ID);
             TAUser applicant = await _um.FindByIdAsync(Id);
             <tr>
+                <td>
+                    @{
+                        if(item.Picture != null){
+                            <img class="img-thumbnail" width="64px" height="64px" src="/uploads/@item.Picture" />
+                        } 
+                        else
+                        {
+                            <img class="img-thumbnail" width="64px" height="64px" src="/images/logo-64.png" />
+                        }
+                    }
+                </td>
                 <td>
                     @String.Format("u{0:0000000}", applicant.Unid)
                 </td>

@@ -132,7 +132,7 @@ namespace TAApplication.Controllers
                 // (3) check that only one file has been submitted
                 if (files.Count != 1)
                 {
-                    ViewData["ErrorMessage"] = "One file at a time please.";
+                    ViewData["ErrorMessage"] = "Please upload one (and only one) file at a time.";
                     return View("Details", app);
                 }
                 // (4) check that the file size is less than, say, 10 million bytes
