@@ -6,8 +6,8 @@ Course:     CS 4540, University of Utah, School of Computing
 GitHub ID:  rj-davidson
 Partner GitHub ID: davidclark495
 Repo:       https://github.com/uofu-cs4540-fall2022/taapplication-bazooka-pompom.git
-EC2 name (Robert): 
-EC2 name (David):
+EC2 name (Robert): https://ec2-52-20-131-107.compute-1.amazonaws.com
+EC2 name (David): https://ec2-44-208-90-42.compute-1.amazonaws.com/
 Commit Tag: HW5
 Project:    TA Application
 Copyright:  CS 4540, David Clark and Robert Davidson  - This work may not be copied for use in Academic Coursework.
