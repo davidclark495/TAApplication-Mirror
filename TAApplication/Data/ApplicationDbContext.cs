@@ -40,7 +40,7 @@ namespace TAApplication.Data
         }
         public async Task InitializeUsers(UserManager<TAUser> um, RoleManager<IdentityRole> rm)
         {
-            this.Database.EnsureCreated();
+            await this.Database.MigrateAsync();
 
             // Look for any TAUsers.
             if (um.Users.Any<TAUser>())
