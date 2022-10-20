@@ -1,0 +1,116 @@
+﻿@model IEnumerable<TAApplication.Models.Course>
+@using TAApplication.Areas.Identity.Data
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<TAUser> _um
+@inject IConfiguration _config
+
+@{
+    ViewData["Title"] = "List";
+}
+@*
+	Author: Robert Davidson
+	Partner: David Clark
+	Date: 10/19/2022
+	Course: CS 4540, University of Utah, School of Computing
+	Copyright: CS 4540, David Clark and Robert Davidson - This work may not be copied for use in Academic Coursework.
+
+	I, David Clark, certify that I wrote this code from scratch and did not copy it in part or whole from
+	another source.  Any references used in the completion of the assignment are cited in my README file.
+
+	I, Robert Davidson, certify that I wrote this code from scratch and did not copy it in part or whole from
+	another source. Any references used in the completion of the assignment are cited in my README file.
+
+	File Contents
+
+		List of Courses
+*@
+<h1>Course List</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Semester)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Year)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Department)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Section)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProfessorName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeAndDaysOffered)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreditHours)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Enrollment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Note)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            string url = String.Concat("/Courses/Details/", item.ID);
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Semester)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Year)
+                </td>
+                <td>
+                    <a href='@url'>
+                        @item.Title
+                    </a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Department)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Number)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Section)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProfessorName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TimeAndDaysOffered)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreditHours)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Enrollment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Note)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

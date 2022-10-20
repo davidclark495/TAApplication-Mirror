@@ -58,6 +58,7 @@ using (var scope = app.Services.CreateScope())
 
     await DB.InitializeUsers(um, rm);
     await DB.InitializeApplications(um);
+    await DB.InitializeCourses(um);
 }
 
 // Configure the HTTP request pipeline.

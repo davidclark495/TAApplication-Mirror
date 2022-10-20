@@ -25,8 +25,11 @@ namespace TAApplication.Models
     public class Course
     {
         [Required]
+        public int ID { get; set; }
+
+        [Required]
         [Display(Name = "Semester Offered", ShortName = "Semester")]
-        public Enum Semester { get; set; }
+        public Semester Semester { get; set; }
 
 
         [Required]
@@ -61,6 +64,7 @@ namespace TAApplication.Models
 
         [Required]
         [StringLength(1000)]
+        [DataType(DataType.MultilineText)]
         [Display(Name = "Course Description", ShortName = "Description")]
         public string Description { get; set; }
 
@@ -101,9 +105,9 @@ namespace TAApplication.Models
         public int Enrollment { get; set; }
 
 
-        [Required]
         [StringLength(1000)]
+        [DataType(DataType.MultilineText)]
         [Display(Name = "Admin Note")]
-        public string Note { get; set; }
+        public string? Note { get; set; }
     }
 }

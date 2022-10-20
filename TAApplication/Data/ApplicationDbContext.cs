@@ -29,6 +29,7 @@ namespace TAApplication.Data
     {
         // DB Tables
         public DbSet<Application> Applications { get; set; }
+        public DbSet<Course> Courses { get; set; }
 
         // Misc. Properties 
         private IHttpContextAccessor _httpContextAccessor;
@@ -121,6 +122,105 @@ namespace TAApplication.Data
             foreach (Application app in apps)
             {
                 await this.Applications.AddAsync(app);
+            }
+            this.SaveChanges();
+        }
+        
+        public async Task InitializeCourses(UserManager<TAUser> um)
+        {
+            if (this.Courses.Any<Course>())
+            {
+                return;   // DB has been seeded
+            }
+            TAUser prof = await um.FindByEmailAsync("professor@utah.edu");
+            var additCourses = new Course[]
+            {
+                new Course
+                {
+                    Semester = TAApplication.Models.Semester.Spring,
+                    Year = 2022,
+                    Title = "Introduction to Object Oriented Programming",
+                    Department = "CS",
+                    Number = 1400,
+                    Section = "001",
+                    Description = "When you think CS is easy.",
+                    ProfessorUNID = prof.Unid,
+                    ProfessorName = prof.Name,
+                    TimeAndDaysOffered = "M/W 3:30-5:00",
+                    Location = "WEB L104",
+                    CreditHours = 3,
+                    Enrollment = 0,
+                    Note = "Oh Yeah! I'm an ADMIN, WOOOOO!"
+                },
+                new Course
+                {
+                    Semester = TAApplication.Models.Semester.Spring,
+                    Year = 2022,
+                    Title = "Intro to Syntax",
+                    Department = "LING",
+                    Number = 4020,
+                    Section = "001",
+                    Description = "When you give up on CS.",
+                    ProfessorUNID = prof.Unid,
+                    ProfessorName = prof.Name,
+                    TimeAndDaysOffered = "M/W 3:30-5:00",
+                    Location = "GEO L104",
+                    CreditHours = 4,
+                    Enrollment = 0
+                },
+                new Course
+                {
+                    Semester = TAApplication.Models.Semester.Spring,
+                    Year = 2022,
+                    Title = "Research Forum",
+                    Department = "CS",
+                    Number = 3020,
+                    Section = "001",
+                    Description = "When you think CS is very easy.",
+                    ProfessorUNID = prof.Unid,
+                    ProfessorName = prof.Name,
+                    TimeAndDaysOffered = "F 3:30-5:00",
+                    Location = "ART 210",
+                    CreditHours = 1,
+                    Enrollment = 0
+                },
+                new Course
+                {
+                    Semester = TAApplication.Models.Semester.Spring,
+                    Year = 2022,
+                    Title = "Artifical Intelligence",
+                    Department = "CS",
+                    Number = 4300,
+                    Section = "001",
+                    Description = "When you think CS is not easy.",
+                    ProfessorUNID = prof.Unid,
+                    ProfessorName = prof.Name,
+                    TimeAndDaysOffered = "M/W 3:30-5:00",
+                    Location = "WEB L104",
+                    CreditHours = 3,
+                    Enrollment = 0
+                },
+                new Course
+                {
+                    Semester = TAApplication.Models.Semester.Spring,
+                    Year = 2022,
+                    Title = "Computer Systems",
+                    Department = "CS",
+                    Number = 4400,
+                    Section = "001",
+                    Description = "When you think CS is hard.",
+                    ProfessorUNID = prof.Unid,
+                    ProfessorName = prof.Name,
+                    TimeAndDaysOffered = "T/Th 3:30-5:00",
+                    Location = "WEB L101",
+                    CreditHours = 4,
+                    Enrollment = 0,
+                    Note = "Course 4400"
+                }
+            };
+            foreach (Course c in additCourses)
+            {
+                await this.Courses.AddAsync(c);
             }
             this.SaveChanges();
         }
