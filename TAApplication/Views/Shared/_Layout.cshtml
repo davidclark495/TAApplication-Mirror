@@ -56,14 +56,20 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         @if(curUser != null){
-                            @if(await _um.IsInRoleAsync(curUser, "Admin")){
+                            @if(await _um.IsInRoleAsync(curUser, "Admin"))
+                            {
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Roles">Role Manager</a>
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Applications" asp-action="Index">Applications Index</a>
                             }
                             @if (await _um.IsInRoleAsync(curUser, "Professor") || await _um.IsInRoleAsync(curUser, "Admin"))
                             {
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Courses" asp-action="List">Courses List</a>
+                            }
+                            @if (await _um.IsInRoleAsync(curUser, "Professor"))
+                            {
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Applications" asp-action="List">Application List</a>
                             }
+
                             @if (await _um.IsInRoleAsync(curUser, "Applicant"))
                             {
                                 Application? existingApp = _db.Applications
@@ -89,32 +95,14 @@
                                 @if (curUser != null)
                                 {
                                     <li><p class="text-center">@curUser.Name</p></li>
-
-                                    // PS5 Views
                                     <li><hr /></li>
-                                    <li><p class="text-center">PS5</p></li>
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="Applications" asp-action="Index">Application Index</a></li>
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="Applications" asp-action="List">Application List</a></li>
-                                    {
-                                        Application? app0 = _db.Applications
-                                                                        .Where(app => app.TAUser.Unid == 0)
-                                                                        .FirstOrDefault();
-                                        String app0URL = "/Applications/Details/" + app0.ID;
-                                        <li><a class="text-dark dropdown-item" href=@app0URL>View Application</a></li>
-                                    }
-                                    
-                                    // Admin Views
-                                    <li><hr /></li>
-                                    <li><p class="text-center">Admin</p></li>
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="Roles">Role Manager</a></li>
-
-                                    // OLD Views
-                                    <li><hr /></li>
-                                    <li><p class="text-center">OLD</p></li>
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="OLD" asp-action="ApplicationList">OLD Applicants List</a></li>
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="OLD" asp-action="ApplicationCreate">OLD Apply Now</a></li>
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="OLD" asp-action="ApplicationDetails">OLD View Application</a></li>
-                                } else {
+                                    <li><a class="dropdown-item" asp-controller="Courses" asp-action="List">List of all Courses</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Courses" asp-action="Details" asp-route-id="1">Details of First Course</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Courses" asp-action="Edit" asp-route-id="1">Update First Course</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Courses" asp-action="Create">Create a Course</a></li>
+                                }
+                                else
+                                {
                                     <li><a class="dropdown-item" asp-area="Identity" asp-page="/Account/Login">Login</a></li>
                                 }
                             </ul>

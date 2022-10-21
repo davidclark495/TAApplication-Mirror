@@ -42,13 +42,6 @@ namespace TAApplication.Controllers
             _um = um;
         }
 
-        // GET: Courses
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Index()
-        {
-              return View(await _db.Courses.ToListAsync());
-        }
-
         // GET: Courses/List
         [Authorize(Roles = "Admin, Professor")]
         public async Task<IActionResult> List()
@@ -94,7 +87,7 @@ namespace TAApplication.Controllers
             {
                 _db.Add(course);
                 await _db.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(List));
             }
             return View(course);
         }
@@ -147,7 +140,7 @@ namespace TAApplication.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(List));
             }
             return View(course);
         }
@@ -188,7 +181,7 @@ namespace TAApplication.Controllers
             }
             
             await _db.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(List));
         }
 
         private bool CourseExists(int id)

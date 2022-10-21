@@ -49,7 +49,10 @@
             </div>
             <div class="form-group">
                 <label asp-for="ProfessorUNID" class="control-label"></label>
-                <input asp-for="ProfessorUNID" class="form-control" />
+                <div class="input-group">
+                    <span class="input-group-text" id="UnidPrepend">u</span>
+                    <input asp-for="ProfessorUNID" class="form-control" aria-describedby="UnidPrepend" />
+                </div>
                 <span asp-validation-for="ProfessorUNID" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -94,5 +97,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

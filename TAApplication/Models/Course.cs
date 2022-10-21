@@ -70,7 +70,7 @@ namespace TAApplication.Models
 
 
         [Required]
-        [RegularExpression(@"u[0-9]{7}$")]
+        [RegularExpression(@"[0-9]{7}$")]
         [Display(Name = "Professor ID")]
         public int ProfessorUNID { get; set; }
 
