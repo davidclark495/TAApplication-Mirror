@@ -6,6 +6,7 @@
 
 @{
     ViewData["Title"] = "List";
+    TAUser curUser = await _um.GetUserAsync(User);
 }
 @*
 	Author: Robert Davidson
@@ -62,9 +63,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.Enrollment)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Note)
-            </th>
+            @if (await _um.IsInRoleAsync(curUser, "Admin"))
+            {
+                <th>
+                    @Html.DisplayNameFor(model => model.Note)
+                </th>
+            }
         </tr>
     </thead>
     <tbody>
@@ -107,9 +111,12 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Enrollment)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Note)
-                </td>
+                @if (await _um.IsInRoleAsync(curUser, "Admin"))
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Note)
+                    </td>
+                }
             </tr>
         }
     </tbody>
