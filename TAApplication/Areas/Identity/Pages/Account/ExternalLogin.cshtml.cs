@@ -185,6 +185,7 @@ namespace TAApplication.Areas.Identity.Pages.Account
                 user.EmailConfirmed = true;
 
                 var result = await _userManager.CreateAsync(user);
+                await _userManager.AddToRoleAsync(user, "Applicant");
                 if (result.Succeeded)
                 {
                     result = await _userManager.AddLoginAsync(user, info);
