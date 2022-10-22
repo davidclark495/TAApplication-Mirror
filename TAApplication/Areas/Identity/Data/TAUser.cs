@@ -39,6 +39,5 @@ namespace TAApplication.Areas.Identity.Data
         [EmailAddress]
         [Required()]
         public override string Email { get; set; }
-
     }
 }

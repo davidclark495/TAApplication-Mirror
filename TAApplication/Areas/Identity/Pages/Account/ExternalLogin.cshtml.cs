@@ -18,6 +18,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using TAApplication.Areas.Identity.Data;
+using System.Xml.Linq;
+using EllipticCurve.Utils;
 
 namespace TAApplication.Areas.Identity.Pages.Account
 {
@@ -82,11 +84,13 @@ namespace TAApplication.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
+
             [Required]
-            [EmailAddress]
-            public string Email { get; set; }
+            [RegularExpression("^[0-9]{7}$")]
+            [Display(Name = "U of U ID")]
+            public string Unid { get; set; }
         }
-        
+
         public IActionResult OnGet() => RedirectToPage("./Login");
 
         public IActionResult OnPost(string provider, string returnUrl = null)
@@ -130,10 +134,10 @@ namespace TAApplication.Areas.Identity.Pages.Account
                 ProviderDisplayName = info.ProviderDisplayName;
                 if (info.Principal.HasClaim(c => c.Type == ClaimTypes.Email))
                 {
-                    Input = new InputModel
-                    {
-                        Email = info.Principal.FindFirstValue(ClaimTypes.Email)
-                    };
+                    Input = new InputModel();
+                    //{
+                    //    Email = info.Principal.FindFirstValue(ClaimTypes.Email)
+                    //};
                 }
                 return Page();
             }
@@ -154,8 +158,12 @@ namespace TAApplication.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
-                await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+                await _userStore.SetUserNameAsync(user, info.Principal.FindFirstValue(ClaimTypes.Email), CancellationToken.None);
+                await _emailStore.SetEmailAsync(user, info.Principal.FindFirstValue(ClaimTypes.Email), CancellationToken.None);
+                user.Unid = Int32.Parse(Input.Unid);
+                user.Name = info.Principal.FindFirstValue(ClaimTypes.Name);
+                user.ReferredTo = info.Principal.FindFirstValue(ClaimTypes.Name);
+                user.EmailConfirmed = true;
 
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
@@ -174,14 +182,14 @@ namespace TAApplication.Areas.Identity.Pages.Account
                             values: new { area = "Identity", userId = userId, code = code },
                             protocol: Request.Scheme);
 
-                        await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                        await _emailSender.SendEmailAsync(user.Email, "Confirm your email",
                             $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                         // If account confirmation is required, we need to show the link if we don't have a real email sender
-                        if (_userManager.Options.SignIn.RequireConfirmedAccount)
-                        {
-                            return RedirectToPage("./RegisterConfirmation", new { Email = Input.Email });
-                        }
+                        //if (_userManager.Options.SignIn.RequireConfirmedAccount)
+                        //{
+                        //    return RedirectToPage("./RegisterConfirmation", new { Email = user.Email });
+                        //}
 
                         await _signInManager.SignInAsync(user, isPersistent: false, info.LoginProvider);
                         return LocalRedirect(returnUrl);
