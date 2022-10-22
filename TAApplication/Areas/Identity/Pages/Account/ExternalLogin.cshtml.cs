@@ -2,6 +2,25 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
+/*
+    Author: Robert Davidson
+	Partner: David Clark
+	Date: 10/22/2022
+
+    Course: CS 4540, University of Utah, School of Computing
+	Copyright: CS 4540, David Clark and Robert Davidson - This work may not be copied for use in Academic Coursework.
+
+	I, David Clark, certify that I wrote this code from scratch and did not copy it in part or whole from
+	another source.  Any references used in the completion of the assignment are cited in my README file.
+
+	I, Robert Davidson, certify that I wrote this code from scratch and did not copy it in part or whole from
+	another source. Any references used in the completion of the assignment are cited in my README file.
+
+	File Contents
+
+		Backend for External Login Page
+*/
+
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
