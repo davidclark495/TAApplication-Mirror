@@ -26,6 +26,8 @@ using TAApplication.Data;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using WebPWrecover.Services;
 using Microsoft.Data.SqlClient;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.EntityFrameworkCore.Storage;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -59,13 +61,18 @@ var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
+
     var DB = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     var um = scope.ServiceProvider.GetRequiredService<UserManager<TAUser>>();
     var rm = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
+    await DB.Database.MigrateAsync();
+    
     await DB.InitializeUsers(um, rm);
     await DB.InitializeApplications(um);
     await DB.InitializeCourses(um);
+    await DB.InitializeSlots(um);
+
 }
 
 // Configure the HTTP request pipeline.

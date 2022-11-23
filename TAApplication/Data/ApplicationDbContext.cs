@@ -30,6 +30,7 @@ namespace TAApplication.Data
         // DB Tables
         public DbSet<Application> Applications { get; set; }
         public DbSet<Course> Courses { get; set; }
+        public DbSet<Slot> Slots { get; set; }
 
         // Misc. Properties 
         private IHttpContextAccessor _httpContextAccessor;
@@ -41,8 +42,6 @@ namespace TAApplication.Data
         }
         public async Task InitializeUsers(UserManager<TAUser> um, RoleManager<IdentityRole> rm)
         {
-            await this.Database.MigrateAsync();
-
             // Look for any TAUsers.
             if (um.Users.Any<TAUser>())
             {
@@ -122,6 +121,48 @@ namespace TAApplication.Data
             foreach (Application app in apps)
             {
                 await this.Applications.AddAsync(app);
+            }
+            this.SaveChanges();
+        }
+        
+        public async Task InitializeSlots(UserManager<TAUser> um)
+        {
+            if (this.Slots.Any<Slot>())
+            {
+                return;   // DB has been seeded
+            }
+            TAUser user0 = await um.FindByEmailAsync("u0000000@utah.edu");
+
+            // 8am to noon on monday and friday
+            // noon to 5pm on tuesday and thursday
+            var slots = new Slot[240];
+            for(int i = 0; i < 240; i++)
+            {
+                slots[i] = new Slot
+                {
+                    IsOpen = false,
+                    SlotNumber = i,
+                    TAUser = user0
+                };
+            }
+
+            // Monday 8am -> 12pm
+            for(int i = 0; i < 16; i++)
+                slots[i].IsOpen = true;
+            // Tuesday 12pm -> 5pm
+            for(int i = 48+16; i < 48+16+20; i++)
+                slots[i].IsOpen = true;
+            // Thursday 12pm -> 5pm
+            for(int i = 144+16; i < 144+16+20; i++)
+                slots[i].IsOpen = true;
+            // Friday 8am -> 12pm
+            for(int i = 192; i < 192+16; i++)
+                slots[i].IsOpen = true;
+
+
+            foreach (Slot sl in slots)
+            {
+                await this.Slots.AddAsync(sl);
             }
             this.SaveChanges();
         }
