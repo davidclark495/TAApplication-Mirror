@@ -1,0 +1,37 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using TAApplication.Areas.Identity.Data
+@inject UserManager<TAUser> _um
+
+@*
+	Author: Robert Davidson
+	Partner: David Clark
+	Date: 11/23/2022
+	Course: CS 4540, University of Utah, School of Computing
+	Copyright: CS 4540, David Clark and Robert Davidson - This work may not be copied for use in Academic Coursework.
+
+	I, David Clark, certify that I wrote this code from scratch and did not copy it in part or whole from
+	another source.  Any references used in the completion of the assignment are cited in my README file.
+
+	I, Robert Davidson, certify that I wrote this code from scratch and did not copy it in part or whole from
+	another source. Any references used in the completion of the assignment are cited in my README file.
+
+	File Contents
+
+		Displays user availability. Allows the user to make changes.
+*@
+@{
+	TAUser currUser = await _um.GetUserAsync(User);
+}
+
+<h1>Availability for @currUser.Name</h1>
+<p>
+    Please indicate all times that you will be available during the week. This information is used by the
+    hiring committee and professors to determine class coverage, lab coverage, office hour coverage, etc.
+    (Note: Any work necessary on the weekends will be up to you and your professor to negotiate.)
+</p>
+<p>
+    If your schedule changes, please come back and update this record
+</p>
+<canvas></canvas>
+<button>Save</button>
+
