@@ -25,12 +25,24 @@
 
 <form asp-action="Edit" class="form-floating row g-3">
     <div class="col-md-4">
-        <label class="form-label">Number of Applications</label>
-        <input class="form-control" type="text" value="@_db.Applications.Count()" aria-label="Number of Applications" disabled>
+		<div class="row">
+			<label class="form-label">Number of Applications</label>
+			<input class="form-control" type="text" value="@_db.Applications.Count()" aria-label="Number of Applications" disabled>
 
-        <label class="form-label">Average GPA</label>
-        <input class="form-control" type="text" value="@_db.Applications.Average(a => a.GPA)" aria-label="Average GPA" disabled>
-        <br />
-        <a class="btn btn-secondary" asp-action="List">View Application List</a>
+			<label class="form-label">Average GPA</label>
+			<input class="form-control" type="text" value="@_db.Applications.Average(a => a.GPA)" aria-label="Average GPA" disabled>
+			<br />
+			<a class="btn btn-secondary" asp-action="List">View Application List</a>
+		</div>
+		<br />
+		<div class="row">
+			@{
+				double totalAvailableHours = _db.Slots.Count(slot => slot.IsOpen) * 0.25;
+			}
+			<br />
+			<label class="form-label">Total Available Hours</label>
+			<input class="form-control" type="text" value="@totalAvailableHours" aria-label="Total Available Hours" disabled>
+			<a class="btn btn-secondary" asp-controller="Availability" asp-action="Index">View Availability</a>
+		</div>
     </div>
 </form>
