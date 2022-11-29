@@ -29,7 +29,7 @@ namespace TAApplication.Controllers
         /// Replaces the existing slots for the current user
         /// </summary>
         /// <param name="newSlots">Complete set of slots for a TA schedule</param>
-        public async void SetSchedule(Slot[] newSlots)
+        public async Task SetSchedule(Slot[] newSlots)
         {
             // Gets and deletes all previous slots
             TAUser currUser = await _um.GetUserAsync(User);

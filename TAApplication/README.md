@@ -66,11 +66,11 @@ Trophy Image - https://www.publicdomainpictures.net/en/view-image.php?image=1634
 
 # Time Expenditures:
 
-   1. Assignment One: Predicted Hours: 10 Actual Hours: 10
-   2. Assignment Two: Predicted Hours: 10 Actual Hours: 8.5
+   1. Assignment One:       Predicted Hours: 10 Actual Hours: 10
+   2. Assignment Two:       Predicted Hours: 10 Actual Hours: 8.5
    
-   4. Assignment Four: Predicted Hours: 10 Actual Hours: 18
-   5. Assignment Five: Predicted Hours: 15 Actual Hours: 20
-   6. Assignment Six: Predicted Hours: 15 Actual Hours:  6
+   4. Assignment Four:      Predicted Hours: 10 Actual Hours: 18
+   5. Assignment Five:      Predicted Hours: 15 Actual Hours: 20
+   6. Assignment Six:       Predicted Hours: 15 Actual Hours: 6
    
-   8. Assignment Eight: Predicted Hours: 12 Actual Hours:  7.75
+   8. Assignment Eight:     Predicted Hours: 12 Actual Hours: 10
