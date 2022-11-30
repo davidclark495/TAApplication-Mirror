@@ -108,6 +108,7 @@ class AvailabilityTracker extends PIXI.Graphics {
 	static border_color = 0xffffff;
 	static available_color = 0x343464;
 	static unavailable_color = 0x2f2f2f;
+	static text_color = 0x222222;
 	static width = 800;
 	static height = 600;
 
@@ -131,17 +132,17 @@ class AvailabilityTracker extends PIXI.Graphics {
 
 
 	build_grid() {
-		const numDaysWithBuffer = 6;
-		const numSlotsWithBuffer = 56;
-		const slotWidth = AvailabilityTracker.width / numDaysWithBuffer;
-		const slotHeight = AvailabilityTracker.height / numSlotsWithBuffer;
+		const num_days_with_buffer = 6;
+		const num_slots_with_buffer = 56;
+		const slot_width = AvailabilityTracker.width / num_days_with_buffer;
+		const slot_height = AvailabilityTracker.height / num_slots_with_buffer;
 		var grid = new PIXI.Graphics();
 		grid.x = 20;
-		grid.y = 4 * slotHeight;
+		grid.y = 4 * slot_height;
 		grid.beginFill(AvailabilityTracker.border_color);
         	// Horizontal Lines
 		for (var i = 0; i < 48; i += 4) {
-			grid.drawRect(0, i * slotHeight, AvailabilityTracker.width - slotWidth, 1);
+			grid.drawRect(0, i * slot_height, AvailabilityTracker.width - slot_width, 1);
 		}
 
 		// Labels
@@ -152,13 +153,13 @@ class AvailabilityTracker extends PIXI.Graphics {
 		for (let i = 0; i < 5; i++) 
 		{
 			const day_label = new PIXI.Graphics();
-			day_label.x = 24 + i * slotWidth;
+			day_label.x = 24 + i * slot_width;
 			day_label.y = 20;
-			day_label.width = slotWidth;
+			day_label.width = slot_width;
 			const text = new PIXI.Text(weekdays[i], {
 				fontFamily: 'Arial',
 				fontSize: 18,
-				fill: 0x222222,
+				fill: this.text_color * 0xffffff,
 				align: 'center',
 			});
 			day_label.addChild(text);
@@ -170,13 +171,13 @@ class AvailabilityTracker extends PIXI.Graphics {
 		for (let i = 0; i < 12; i++)
 		{
 			const time_label = new PIXI.Graphics();
-			time_label.x = 28 + 5 * slotWidth;
-			time_label.y = slotHeight * 4 + i * slotHeight * 4;
-			time_label.width = slotWidth;
+			time_label.x = 28 + 5 * slot_width;
+			time_label.y = slot_height * 4 + i * slot_height * 4;
+			time_label.width = slot_width;
 			const text = new PIXI.Text(times_hourly[i], {
 				fontFamily: 'Arial',
 				fontSize: 14,
-				fill: 0x222222,
+				fill: this.text_color * 0xffffff,
 				align: 'center',
 			});
 			time_label.addChild(text);
@@ -186,12 +187,12 @@ class AvailabilityTracker extends PIXI.Graphics {
 		// Tips Label
 		const tip_label = new PIXI.Graphics();
 		tip_label.x = 24;
-		tip_label.y = slotHeight * 4 * 13 + 8;
-		tip_label.width = slotWidth;
+		tip_label.y = slot_height * 4 * 13 + 8;
+		tip_label.width = slot_width;
 		const text = new PIXI.Text("Click and drag to set/un-set available times. (Darker slots are 'available')", {
 			fontFamily: 'Arial',
 			fontSize: 14,
-			fill: 0x555555,
+			fill: this.text_color * 0xffffff,
 			align: 'center',
 		});
 		tip_label.addChild(text);
@@ -204,23 +205,23 @@ class AvailabilityTracker extends PIXI.Graphics {
 	}
 
 	build_slots() {
-		const numDaysWithBuffer = 6;
-		const numSlotsWithBuffer = 56;
-		const slotWidth = AvailabilityTracker.width / numDaysWithBuffer;
-		const slotHeight = AvailabilityTracker.height / numSlotsWithBuffer;
-		var offsetX = 20;
-		var offsetY = 4*slotHeight;
+		const num_days_with_buffer = 6;
+		const num_slots_with_buffer = 56;
+		const slot_width = AvailabilityTracker.width / num_days_with_buffer;
+		const slot_height = AvailabilityTracker.height / num_slots_with_buffer;
+		var offset_x = 20;
+		var offset_y = 4*slot_height;
 
-		var xGap = 12;
+		var x_gap = 12;
         let slot_arr = []; // js representation of Slot objects
 
         // Slot Initialization
         for (let i = 0; i < 5 * 48; i++) {
-        	var x = offsetX + (Math.floor(i / 48) * slotWidth);
-        	var y = offsetY + (i % 48 * slotHeight);
+        	var x = offset_x + (Math.floor(i / 48) * slot_width);
+        	var y = offset_y + (i % 48 * slot_height);
     //        var isAvailable = slot_data[i]["isOpen"];
 
-        	var new_slot = new Slot(this, i, true, x + xGap/2, y, slotWidth - xGap, slotHeight);
+        	var new_slot = new Slot(this, i, true, x + x_gap/2, y, slot_width - x_gap, slot_height);
         	new_slot.draw_slot();
         	this.app.stage.addChild(new_slot);
         	slot_arr.push(new_slot);
@@ -263,14 +264,14 @@ class AvailabilityTracker extends PIXI.Graphics {
    		slot.IsOpen  = this.slots[i].available;
    		slot.SlotNumber = this.slots[i].slot_num;
    		slot.TAUserId = this.slots[i].slot_tauserid;
-   		var jsonString= JSON.stringify(slot);
-   		data.push(jsonString);
-   		console.log("MAGIC MAGIC MAGIC" + i, jsonString);
+   		data.push(slot);
    	}
+   	var json_slot_data = JSON.stringify(data);
+   	console.log("Oh yeah, JSON!", json_slot_data);
    	$.ajax({
-   		url: "Availability/SetSchedule/",
+   		url: "Availability/SetSchedule",
    		type: "POST",
-   		data: data
+   		data: json_slot_data
    	})
    	.done(function (data) {
    		console.log("successfully saved, probably");
@@ -278,6 +279,9 @@ class AvailabilityTracker extends PIXI.Graphics {
    	.fail(function (data) {
    		console.log("so sad, not saved");
    	})
+   	.always(function (data) {
+   		console.log("ajax attempted to send data")
+   	});
    }
 
    pointer_up() {
