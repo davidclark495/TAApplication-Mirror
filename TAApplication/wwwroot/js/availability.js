@@ -48,7 +48,7 @@ class Slot extends PIXI.Graphics {
 	draw_slot()
 	{
 		this.clear();
-		var color = ((this.available) ? 0x3c42f0 : 0xe2e4fa);
+		var color = ((this.available) ? 0x3d54d9 : 0xbfc7f5);
 		this.beginFill(color);
 		this.drawRect(0, 0, this.my_width, this.my_height);
 	}
@@ -104,8 +104,8 @@ class Slot extends PIXI.Graphics {
 
 class AvailabilityTracker extends PIXI.Graphics {
 
-	static bg_color = 0xe2e4fa;
-	static border_color = 0xa9a9a9;
+	static bg_color = 0xffffff;
+	static border_color = 0xffffff;
 	static available_color = 0x343464;
 	static unavailable_color = 0x2f2f2f;
 	static width = 800;
@@ -139,10 +139,66 @@ class AvailabilityTracker extends PIXI.Graphics {
 		grid.x = 20;
 		grid.y = 4 * slotHeight;
 		grid.beginFill(AvailabilityTracker.border_color);
-        // Horizontal Lines
-		for (var i = 0; i < numSlotsWithBuffer - 6; i += 4) {
+        	// Horizontal Lines
+		for (var i = 0; i < 48; i += 4) {
 			grid.drawRect(0, i * slotHeight, AvailabilityTracker.width - slotWidth, 1);
 		}
+
+		// Labels
+
+		// Week Days
+		var label_container = new PIXI.Graphics();
+		var weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+		for (let i = 0; i < 5; i++) 
+		{
+			const day_label = new PIXI.Graphics();
+			day_label.x = 24 + i * slotWidth;
+			day_label.y = 20;
+			day_label.width = slotWidth;
+			const text = new PIXI.Text(weekdays[i], {
+				fontFamily: 'Arial',
+				fontSize: 18,
+				fill: 0x222222,
+				align: 'center',
+			});
+			day_label.addChild(text);
+			label_container.addChild(day_label);
+		}
+
+		// Hourly Labels
+		var times_hourly = ['08:00 am', '09:00 am', '10:00 am', '11:00 am', '12:00 pm', '01:00 pm', '02:00 pm', '03:00 pm', '04:00 pm', '05:00 pm', '06:00 pm', '07:00 pm', '08:00 pm'];
+		for (let i = 0; i < 12; i++)
+		{
+			const time_label = new PIXI.Graphics();
+			time_label.x = 28 + 5 * slotWidth;
+			time_label.y = slotHeight * 4 + i * slotHeight * 4;
+			time_label.width = slotWidth;
+			const text = new PIXI.Text(times_hourly[i], {
+				fontFamily: 'Arial',
+				fontSize: 14,
+				fill: 0x222222,
+				align: 'center',
+			});
+			time_label.addChild(text);
+			label_container.addChild(time_label);
+		}
+
+		// Tips Label
+		const tip_label = new PIXI.Graphics();
+		tip_label.x = 24;
+		tip_label.y = slotHeight * 4 * 13 + 8;
+		tip_label.width = slotWidth;
+		const text = new PIXI.Text("Click and drag to set/un-set available times. (Darker slots are 'available')", {
+			fontFamily: 'Arial',
+			fontSize: 14,
+			fill: 0x555555,
+			align: 'center',
+		});
+		tip_label.addChild(text);
+		label_container.addChild(tip_label);
+
+		this.app.stage.addChild(label_container);
+
 		this.app.stage.addChild(grid);
 		return grid;
 	}
