@@ -271,7 +271,7 @@ class AvailabilityTracker extends PIXI.Graphics {
 	   $.ajax({
 		   url: "Availability/SetSchedule",
 		   type: "POST",
-		   data: { newSlots: ['1'] }
+		   data: { newSlots: data }
    	})
    	.done(function (data) {
    		console.log("successfully saved, probably");

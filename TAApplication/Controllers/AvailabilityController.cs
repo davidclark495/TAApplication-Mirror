@@ -30,17 +30,17 @@ namespace TAApplication.Controllers
         /// </summary>
         /// <param name="newSlots">Complete set of slots for a TA schedule</param>
         [HttpPost]
-        public async Task SetSchedule( string[] newSlots)
+        public async Task SetSchedule( Slot[] newSlots)
         {
             // Gets and deletes all previous slots
             TAUser currUser = await _um.GetUserAsync(User);
             var oldSlots = _db.Slots.Where(slot => slot.TAUserId == currUser.Id);
-            //foreach (var slot in oldSlots)
-            //    _db.Slots.Remove(slot);
+            foreach (var slot in oldSlots)
+                _db.Slots.Remove(slot);
 
             // Adds new schedule (in the form of slots)
-            //foreach (Slot slot in newSlots)
-            //    await _db.Slots.AddAsync(slot);
+            foreach (Slot slot in newSlots)
+                await _db.Slots.AddAsync(slot);
 
             _db.SaveChanges();
         }
