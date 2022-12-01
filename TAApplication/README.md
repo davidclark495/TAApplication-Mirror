@@ -1,7 +1,7 @@
 ```
 Author:     Robert Davidson
 Partner:    David Clark
-Date:       23-Nov-2022
+Date:       30-Nov-2022
 Course:     CS 4540, University of Utah, School of Computing
 GitHub ID:  rj-davidson
 Partner GitHub ID: davidclark495
@@ -27,7 +27,8 @@ PS6:
     a list of available courses, with links to further details. Special notes on courses are seen/editted only by the Admin.
 
 PS8:
-    ASDF ----------------------------------------------------
+    TAUsers can set an availability schedule using an interactive graphic interface built with browser-side javascript
+    and mediated by AJAX/JSON.
 
 
 
@@ -41,7 +42,7 @@ N/A
 
 # Above and Beyond:
 
-BLAH BLAH BLAH -------------------------------------------------
+The styling is nice, nothing beyond that.
 
 # Consulted Peers:
 
@@ -73,4 +74,4 @@ Trophy Image - https://www.publicdomainpictures.net/en/view-image.php?image=1634
    5. Assignment Five:      Predicted Hours: 15 Actual Hours: 20
    6. Assignment Six:       Predicted Hours: 15 Actual Hours: 6
    
-   8. Assignment Eight:     Predicted Hours: 12 Actual Hours: 10
+   8. Assignment Eight:     Predicted Hours: 12 Actual Hours: 13

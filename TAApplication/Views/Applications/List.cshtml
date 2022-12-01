@@ -94,7 +94,9 @@
                     @Html.DisplayFor(modelItem => item.GPA)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.HoursWanted)
+                    <a href='/Availability'>
+                        @Html.DisplayFor(modelItem => item.HoursWanted)
+                    </a>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.EarlyAvailability)

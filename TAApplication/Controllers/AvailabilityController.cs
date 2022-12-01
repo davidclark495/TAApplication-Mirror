@@ -40,7 +40,10 @@ namespace TAApplication.Controllers
 
             // Adds new schedule (in the form of slots)
             foreach (Slot slot in newSlots)
+            {
+                slot.TAUser = currUser;
                 await _db.Slots.AddAsync(slot);
+            }
 
             _db.SaveChanges();
         }
