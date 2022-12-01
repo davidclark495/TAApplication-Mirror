@@ -30,7 +30,7 @@ namespace TAApplication.Controllers
         /// </summary>
         /// <param name="newSlots">Complete set of slots for a TA schedule</param>
         [HttpPost]
-        public async Task SetSchedule(string newSlots)
+        public async Task SetSchedule( string[] newSlots)
         {
             // Gets and deletes all previous slots
             TAUser currUser = await _um.GetUserAsync(User);

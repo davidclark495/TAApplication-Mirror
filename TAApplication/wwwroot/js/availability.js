@@ -259,7 +259,7 @@ class AvailabilityTracker extends PIXI.Graphics {
    	var data = [];
 
    	for (var i = 0; i < 5*48; i++) {
-   		var slot = new Object();
+		var slot = new Object();
    		slot.ID = this.slots[i].slot_id;
    		slot.IsOpen  = this.slots[i].available;
    		slot.SlotNumber = this.slots[i].slot_num;
@@ -268,10 +268,10 @@ class AvailabilityTracker extends PIXI.Graphics {
    	}
    	var json_slot_data = JSON.stringify(data);
    	console.log("Oh yeah, JSON!", json_slot_data);
-   	$.ajax({
-   		url: "Availability/SetSchedule",
-   		type: "POST",
-   		data: json_slot_data
+	   $.ajax({
+		   url: "Availability/SetSchedule",
+		   type: "POST",
+		   data: { newSlots: ['1'] }
    	})
    	.done(function (data) {
    		console.log("successfully saved, probably");
