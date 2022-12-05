@@ -19,6 +19,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic.FileIO;
 using System.Xml.Linq;
 using TAApplication.Areas.Identity.Data;
 using TAApplication.Models;
@@ -31,6 +32,7 @@ namespace TAApplication.Data
         public DbSet<Application> Applications { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<Slot> Slots { get; set; }
+        public DbSet<EnrollmentRecord> EnrollmentRecords { get; set; }
 
         // Misc. Properties 
         private IHttpContextAccessor _httpContextAccessor;
@@ -264,6 +266,51 @@ namespace TAApplication.Data
                 await this.Courses.AddAsync(c);
             }
             this.SaveChanges();
+        }
+
+        public async Task InitializeEnrollmentData()
+        {
+            if (this.EnrollmentRecords.Any<EnrollmentRecord>())
+            {
+                return;
+            }
+
+            // csv-reading code taken from https://stackoverflow.com/questions/3507498/reading-csv-files-using-c-sharp
+            using (TextFieldParser parser = new TextFieldParser(@"wwwroot\csv\temp.csv"))
+            {
+                parser.TextFieldType = FieldType.Delimited;
+                parser.SetDelimiters(",");
+                List<String> dateStrs = new List<String>();
+                int rowNum = 0;
+                // iterate over all rows of the csv
+                while (!parser.EndOfData)
+                {
+                    if (rowNum != 0)
+                    {
+                        // process enrollment data
+                        string[] row = parser.ReadFields();
+                        String CourseName = row[0];
+                        for(int col = 1; col < row.Length; col++)
+                        {
+                            EnrollmentRecord er = new EnrollmentRecord
+                            {
+                                CourseName = CourseName,
+                                Date = DateTime.Parse(dateStrs[col]),
+                                Enrollment = Int32.Parse(row[col])
+                            };
+                            this.EnrollmentRecords.Add(er);
+                        }
+                    }
+                    // grab dates / header row
+                    else
+                    {
+                        dateStrs.AddRange(parser.ReadFields());
+                    }
+                    rowNum++;
+                }
+            }
+
+            SaveChanges();
         }
 
         /// <summary>
