@@ -19,6 +19,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TAApplication.Areas.Identity.Data;
 using TAApplication.Data;
 
@@ -51,5 +52,13 @@ namespace TAApplication.Controllers
                 await _um.AddToRoleAsync(user, role);
             }
         }
+
+        // GET: Admin/EnrollmentTrends
+        public async Task<IActionResult> EnrollmentTrends()
+        {
+            return View();
+        }
+
+
     }
 }

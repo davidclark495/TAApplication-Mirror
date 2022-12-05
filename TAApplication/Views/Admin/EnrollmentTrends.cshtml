@@ -1,0 +1,35 @@
+﻿@*
+	Author: Robert Davidson
+	Partner: David Clark
+	Date: 12/05/2022
+	Course: CS 4540, University of Utah, School of Computing
+	Copyright: CS 4540, David Clark and Robert Davidson - This work may not be copied for use in Academic Coursework.
+	
+	I, David Clark, certify that I wrote this code from scratch and did not copy it in part or whole from 
+	another source.  Any references used in the completion of the assignment are cited in my README file.
+
+	I, Robert Davidson, certify that I wrote this code from scratch and did not copy it in part or whole from
+	another source. Any references used in the completion of the assignment are cited in my README file.
+
+	File Contents
+
+		Allows the user to view # of enrollments over time for a given course. The user can choose which
+		data gets displayed.
+*@
+@{
+	ViewData["Title"] = "Enrollment Trends";
+}
+
+<form>
+	<label>start_date</label>
+	<input type="datetime" id="start_date"/>
+	<label>end_date</label>
+	<input type="datetime" id="end_date"/>
+	<label>choose a course</label>
+	<select>course data</select>
+	<button type="button" >get data</button>
+</form>
+<section>
+	<h1>Enrollments Over Time</h1>
+	<div id="my_highchart"></div>
+</section>
