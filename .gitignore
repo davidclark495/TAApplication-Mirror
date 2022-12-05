@@ -5,6 +5,7 @@
 
 # User File Storage
 **/wwwroot/uploads
+**/wwwroot/csv
 
 # User-specific files
 *.rsuser
