@@ -78,4 +78,4 @@ Trophy Image - https://www.publicdomainpictures.net/en/view-image.php?image=1634
    6. Assignment Six:       Predicted Hours: 15 Actual Hours: 6
    
    8. Assignment Eight:     Predicted Hours: 12 Actual Hours: 13
-   9. Assignment Nine:      Predicted Hours: 12 Actual Hours: 
+   9. Assignment Nine:      Predicted Hours: 12 Actual Hours: 3.5

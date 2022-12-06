@@ -22,6 +22,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TAApplication.Areas.Identity.Data;
 using TAApplication.Data;
+using TAApplication.Models;
 
 namespace TAApplication.Controllers
 {
@@ -57,6 +58,16 @@ namespace TAApplication.Controllers
         public async Task<IActionResult> EnrollmentTrends()
         {
             return View();
+        }
+        // GET: Admin/GetEnrollmentData
+        public async Task<EnrollmentRecord[]> GetEnrollmentData(DateTime start, DateTime end, String courseDept, int courseNum)
+        {
+            EnrollmentRecord[] records = _db.EnrollmentRecords
+                .Include(er => er.Course)
+                .Where(er => start < er.Date && er.Date < end 
+                    && er.Course.Department == courseDept 
+                    && er.Course.Number == courseNum).ToArray();
+            return records;
         }
 
 

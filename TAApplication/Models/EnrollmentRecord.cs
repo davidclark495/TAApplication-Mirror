@@ -14,6 +14,7 @@
 	This is the C# model for tracking Course-Enrollment data over time.  
  */
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml.Linq;
 
@@ -23,11 +24,6 @@ namespace TAApplication.Models
     {
         [Required]
         public int ID { get; set; }
-
-        [Required]
-        [StringLength(150)]
-        [Display(Name = "Course Name", ShortName = "Title")]
-        public String CourseName { get; set; }
 
         [Required]
         [DataType(DataType.DateTime)]
@@ -40,9 +36,11 @@ namespace TAApplication.Models
         public int Enrollment { get; set; }
 
         // Navigation Properties
-        //[Required]
-        //public int CourseID { get; set; }
+        [Required]
+        [ForeignKey("Course")]
+        public int CourseID { get; set; }
 
-        //public Course Course { get; set; }
+        [Required]
+        public Course Course { get; set; } = null!;
     }
 }

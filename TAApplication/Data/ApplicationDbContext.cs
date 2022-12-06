@@ -289,16 +289,41 @@ namespace TAApplication.Data
                     {
                         // process enrollment data
                         string[] row = parser.ReadFields();
-                        String CourseName = row[0];
-                        for(int col = 1; col < row.Length; col++)
+                        string[] courseDeptAndNo = row[0].Split(' ');
+                        string dept = courseDeptAndNo[0];
+                        int no = Int32.Parse(courseDeptAndNo[1]);
+                        Course course = await Courses.Where(c => c.Department == dept && c.Number == no).FirstOrDefaultAsync();
+                        if(course == null)
+                        {// generate a default course if needed
+                            course = new Course
+                            {
+                                Department = dept,
+                                Number = no,
+
+                                Semester = TAApplication.Models.Semester.Fall,
+                                Year = 0,
+                                Title = "No Title Provided",
+                                Section = "0",
+                                Description = "No Desc. Provided",
+                                ProfessorUNID = 0,
+                                ProfessorName = "No Prof. Provided",
+                                TimeAndDaysOffered = "No Times Provided",
+                                Location = "No Location Provided",
+                                CreditHours = 0,
+                                Enrollment = 300
+                            };
+                            await this.Courses.AddAsync(course);
+                            await SaveChangesAsync();
+                        }
+                        for (int col = 1; col < row.Length; col++)
                         {
                             EnrollmentRecord er = new EnrollmentRecord
                             {
-                                CourseName = CourseName,
+                                CourseID = course.ID,
                                 Date = DateTime.Parse(dateStrs[col]),
                                 Enrollment = Int32.Parse(row[col])
                             };
-                            this.EnrollmentRecords.Add(er);
+                            await this.EnrollmentRecords.AddAsync(er);
                         }
                     }
                     // grab dates / header row
@@ -310,7 +335,7 @@ namespace TAApplication.Data
                 }
             }
 
-            SaveChanges();
+            await SaveChangesAsync();
         }
 
         /// <summary>
