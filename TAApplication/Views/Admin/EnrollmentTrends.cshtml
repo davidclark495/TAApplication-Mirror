@@ -25,11 +25,11 @@
 <form id="enrollment-data-form">
 	<div class="form-group col-md-3">
 		<label for="start-date" class="control-label">start date</label>
-		<input name="start-date" type="date" class="form-control" id="start-date" value="" required />
+		<input name="start-date" type="date" class="form-control" id="start-date" value="2022-11-01" required />
 	</div>
 	<div class="form-group col-md-3">
 		<label for="end-date" class="control-label">end date</label>
-		<input name="end-date" type="date" class="form-control" id="end-date" value="" required />
+		<input name="end-date" type="date" class="form-control" id="end-date" value="2022-11-30" required />
 	</div>
 	<div class="form-group col-md-3">
 		<label for="course-identifier" class="control-label">choose a course</label>
@@ -45,9 +45,20 @@
 
 <section>
 	<h1>Enrollments Over Time</h1>
-	<div id="my-highchart"></div>
+	<figure id="chart"></figure>
 </section>
 
-@section Scripts {
+@section Styles
+{
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highcharts/9.3.2/css/highcharts.min.css" 
+	      integrity="sha512-/G4PBY3DrEXBrex90H73x+CRfmCvcSp57ifLtzrwVs4HmOVDccjIPSpGyJwKJmg6qfEDi0tHFaq2mLECK40WjQ==" 
+	      crossorigin="anonymous" referrerpolicy="no-referrer" />
+}
+
+@section Scripts 
+{
     <script type="text/javascript" charset="utf8" src="~/js/Admin/EnrollmentTrends.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/9.3.2/highcharts.js" 
+            integrity="sha512-dm3Cn0X6XyRMz52WqL1wag+e2WCNAnggh2+4mv/9Ngd+IhBIH9NEQYUZ4g3A6GJUbhKrGw5hErqcFIyk73lUgA==" 
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 }

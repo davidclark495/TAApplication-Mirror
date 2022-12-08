@@ -37,15 +37,19 @@
 // ###################################################################################################################
 
 document.getElementById('enrollment-data-form').onsubmit = function() {
-    let start_date = document.getElementById('start-date').value;
-    let end_date = document.getElementById('end-date').value;
-    let course = document.getElementById('course-identifier').value.split(' ');
-    getEnrollmentData(start_date, end_date, course[0], course[1]);
+    loadFormData();
     return false;
 };
 
-function getEnrollmentData(start_date, end_date, course_dept, course_no)
+
+function loadFormData()
 {
+    let start_date = document.getElementById('start-date').value;
+    let end_date = document.getElementById('end-date').value;
+    let course = document.getElementById('course-identifier').value.split(' ');
+    let course_dept = course[0];
+    let course_no = course[1];
+    
     $.get(
         {
             url: "/Admin/GetEnrollmentData/",
@@ -58,10 +62,45 @@ function getEnrollmentData(start_date, end_date, course_dept, course_no)
         }
     ).done(function (data) {
         console.log("Sample of Data: ", data);
+        for(let i = 0; i < data.length; i++) {
+            //data[0]['datetime'] = data[0]['datetime'].toString().substring(5,8);
+        }
         chartEnrollmentData(data);
     });
 }
 
 function chartEnrollmentData(data) {
-    
+    let plottable_data = data.map(er => [er["date"], er["enrollment"]]);
+    let course_name_short = data[0]["course"]["department"] + " " + data[0]["course"]["number"];
+
+    $("#chart").highcharts().addSeries(
+    {
+        name: course_name_short,
+        data: plottable_data
+    });
+
 }
+
+$(document).ready( function() {
+    $("#chart").highcharts({
+        title: {text: 'Enrollments Over Time'},
+        subtitle: {text: ''},
+        yAxis: {title: {text: 'Students'}},
+        xAxis: {
+            title: {text: 'Dates'}, 
+            type: 'datetime',
+            labels: {
+                format: '{value:%m/%d}'
+            }
+        },
+        legend: {layout: 'vertical', align: 'right', verticalAlign: 'middle'},
+        plotOptions: {
+            series: {
+                label: {connectorAllowed: false},
+                pointStart: 0
+            }
+        }
+    });
+    
+    loadFormData();
+});
