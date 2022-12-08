@@ -4,8 +4,8 @@
 	Date: 12/05/2022
 	Course: CS 4540, University of Utah, School of Computing
 	Copyright: CS 4540, David Clark and Robert Davidson - This work may not be copied for use in Academic Coursework.
-	
-	I, David Clark, certify that I wrote this code from scratch and did not copy it in part or whole from 
+
+	I, David Clark, certify that I wrote this code from scratch and did not copy it in part or whole from
 	another source.  Any references used in the completion of the assignment are cited in my README file.
 
 	I, Robert Davidson, certify that I wrote this code from scratch and did not copy it in part or whole from
@@ -22,7 +22,7 @@
 	ViewData["Title"] = "Enrollment Trends";
 }
 
-<form>
+<form id="enrollment-data-form">
 	<div class="form-group col-md-3">
 		<label for="start-date" class="control-label">start date</label>
 		<input name="start-date" type="date" class="form-control" id="start-date" value="" required />
@@ -35,14 +35,19 @@
 		<label for="course-identifier" class="control-label">choose a course</label>
 		<select name="course-identifier" class="form-control" id="course-identifier" required>
 			@foreach (Course course in _db.Courses) {
-				<option>@String.Concat(course.Department, " ", course.Number)</option>
+				string val = String.Concat(course.Department, " ", course.Number);
+				<option id="course-label" value="@val">@val</option>
 			}
 		</select>
 	</div>
-	<button type="button" >get data</button>
+	<input id="get-data-button" type="submit" value="Chart Data" />
 </form>
 
 <section>
 	<h1>Enrollments Over Time</h1>
-	<div id="my_highchart"></div>
+	<div id="my-highchart"></div>
 </section>
+
+@section Scripts {
+    <script type="text/javascript" charset="utf8" src="~/js/Admin/EnrollmentTrends.js"></script>
+}

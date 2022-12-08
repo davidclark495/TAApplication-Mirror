@@ -55,7 +55,7 @@ We found the assignment to be straightforward, we didn't help or consult anyone 
 
 We found the assignment to be straightforward, we didn't help or consult anyone else.
 
-# Acknowledgements:  
+# Acknowledgements:
 
 Lecture Image (Kevin Dooley) - https://wordpress.org/openverse/image/29648f7a-c935-4e1b-ad61-10b97e6ddc80/
 Books Image - https://pxhere.com/en/photo/1575601
@@ -66,7 +66,7 @@ Trophy Image - https://www.publicdomainpictures.net/en/view-image.php?image=1634
     - U of U Admissions page - https://admissions.utah.edu/apply/
     - W3 Schools - https://w3schools.com
     - Bootstrap - https://getbootstrap.com
-    - Bootswatch - https://bootswatch.coms
+    - Bootswatch - https://bootswatch.com
 
 # Time Expenditures:
 
