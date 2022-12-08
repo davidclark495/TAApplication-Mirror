@@ -44,6 +44,9 @@ document.getElementById('enrollment-data-form').onsubmit = function() {
 
 function loadFormData()
 {
+    $("#get-data-button-loading").show();
+    $("#get-data-button-default").hide();
+    
     let start_date = document.getElementById('start-date').value;
     let end_date = document.getElementById('end-date').value;
     let course = document.getElementById('course-identifier').value.split(' ');
@@ -61,7 +64,8 @@ function loadFormData()
             },
         }
     ).done(function (data) {
-        console.log("Sample of Data: ", data);
+        $("#get-data-button-loading").hide();
+        $("#get-data-button-default").show();
         chartEnrollmentData(data);
     });
 }
@@ -83,6 +87,9 @@ function chartEnrollmentData(data) {
 
 }
 
+$("#get-data-button-loading").hide();
+$("#get-data-button-default").show();
+
 $(document).ready( function() {
     $("#chart").highcharts({
         type: 'line',
@@ -97,7 +104,7 @@ $(document).ready( function() {
                 format: '{value:%b. %d}' 
             }
         },
-        legend: {layout: 'vertical', align: 'right', verticalAlign: 'middle'},
+        legend: {layout: 'vertical', align: 'left', verticalAlign: 'middle'},
         plotOptions: {
             series: {
                 label: {connectorAllowed: false},
@@ -107,21 +114,20 @@ $(document).ready( function() {
     });
     
     $("#bar-chart").highcharts({
-        type: 'bar',
+        chart: {
+            type: 'bar'
+        },
         title: {text: 'Current Enrollments'},
         subtitle: {text: ''},
         yAxis: {title: {text: 'Students'}},
         xAxis: {
-            title: {text: 'Course'}//,
-            //type: 'string'
+            visible: false
         },
-        legend: {layout: 'vertical', align: 'right', verticalAlign: 'middle'},
+        legend: {layout: 'vertical', align: 'left', verticalAlign: 'middle'},
         plotOptions: {
             bar: {
                 dataAsColumns: true
             }
         }
     });
-
-    loadFormData();
 });
