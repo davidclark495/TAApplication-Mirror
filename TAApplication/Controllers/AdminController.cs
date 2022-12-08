@@ -64,7 +64,7 @@ namespace TAApplication.Controllers
         {
             EnrollmentRecord[] records = _db.EnrollmentRecords
                 .Include(er => er.Course)
-                .Where(er => start < er.Date && er.Date < end 
+                .Where(er => start <= er.Date && er.Date <= end 
                     && er.Course.Department == courseDept 
                     && er.Course.Number == courseNum).ToArray();
             return records;

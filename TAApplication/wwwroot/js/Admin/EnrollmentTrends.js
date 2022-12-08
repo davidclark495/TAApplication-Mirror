@@ -70,13 +70,14 @@ function loadFormData()
 }
 
 function chartEnrollmentData(data) {
-    let plottable_data = data.map(er => [er["date"], er["enrollment"]]);
+    let plottable_data = data.map(er => [Date.parse(er['date']), er['enrollment']]);
     let course_name_short = data[0]["course"]["department"] + " " + data[0]["course"]["number"];
 
+    
     $("#chart").highcharts().addSeries(
     {
         name: course_name_short,
-        data: plottable_data
+        data: plottable_data 
     });
 
 }
@@ -90,7 +91,8 @@ $(document).ready( function() {
             title: {text: 'Dates'}, 
             type: 'datetime',
             labels: {
-                format: '{value:%m/%d}'
+                step: 7,
+                format: '{value:%b. %d}' 
             }
         },
         legend: {layout: 'vertical', align: 'right', verticalAlign: 'middle'},
