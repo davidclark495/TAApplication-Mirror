@@ -62,28 +62,30 @@ function loadFormData()
         }
     ).done(function (data) {
         console.log("Sample of Data: ", data);
-        for(let i = 0; i < data.length; i++) {
-            //data[0]['datetime'] = data[0]['datetime'].toString().substring(5,8);
-        }
         chartEnrollmentData(data);
     });
 }
 
 function chartEnrollmentData(data) {
-    let plottable_data = data.map(er => [Date.parse(er['date']), er['enrollment']]);
+    let date_enrollment_data = data.map(er => [Date.parse(er['date']), er['enrollment']]);
     let course_name_short = data[0]["course"]["department"] + " " + data[0]["course"]["number"];
-
-    
     $("#chart").highcharts().addSeries(
     {
         name: course_name_short,
-        data: plottable_data 
+        data: date_enrollment_data 
+    });
+    
+    let last_course_enrollment_data = [course_name_short, data[data.length-1]['enrollment']];
+    $("#bar-chart").highcharts().addSeries({
+        name: last_course_enrollment_data[0],
+        data: [last_course_enrollment_data[1]]
     });
 
 }
 
 $(document).ready( function() {
     $("#chart").highcharts({
+        type: 'line',
         title: {text: 'Enrollments Over Time'},
         subtitle: {text: ''},
         yAxis: {title: {text: 'Students'}},
@@ -104,5 +106,22 @@ $(document).ready( function() {
         }
     });
     
+    $("#bar-chart").highcharts({
+        type: 'bar',
+        title: {text: 'Current Enrollments'},
+        subtitle: {text: ''},
+        yAxis: {title: {text: 'Students'}},
+        xAxis: {
+            title: {text: 'Course'}//,
+            //type: 'string'
+        },
+        legend: {layout: 'vertical', align: 'right', verticalAlign: 'middle'},
+        plotOptions: {
+            bar: {
+                dataAsColumns: true
+            }
+        }
+    });
+
     loadFormData();
 });
