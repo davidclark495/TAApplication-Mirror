@@ -16,12 +16,13 @@
 //         Sets up the High Chart and handles page activity
 // */
 
+// Gets form data
 document.getElementById('enrollment-data-form').onsubmit = function() {
     loadFormData();
     return false;
 };
 
-
+// Loads form data
 function loadFormData()
 {
     set_button_loading();
@@ -48,6 +49,7 @@ function loadFormData()
     });
 }
 
+// Plots passed data onto Highchart(s)
 function chartEnrollmentData(data) {
     let date_enrollment_data = data.map(er => [Date.parse(er['date']), er['enrollment']]);
     let course_name_short = data[0]["course"]["department"] + " " + data[0]["course"]["number"];
@@ -67,7 +69,9 @@ function chartEnrollmentData(data) {
 
 set_button_finished();
 
+// Initiates highchart(s)
 $(document).ready( function() {
+    // Line Chart
     $("#chart").highcharts({
         type: 'line',
         title: {text: 'Enrollments Over Time'},
@@ -90,6 +94,7 @@ $(document).ready( function() {
         }
     });
     
+    // Bar Chart
     $("#bar-chart").highcharts({
         chart: {
             type: 'bar'
@@ -109,11 +114,13 @@ $(document).ready( function() {
     });
 });
 
+// Shows spinner on submit button
 function set_button_loading(){
     $("#get-data-button-loading").removeClass("d-none");    // similar to 'show'
     $("#get-data-button-default").addClass("d-none");       // similar to 'hide'
 }
 
+// Hides spinner on submit button when data is loaded
 function set_button_finished(){
     $("#get-data-button-loading").addClass("d-none");       // similar to 'hide'
     $("#get-data-button-default").removeClass("d-none");    // similar to 'show'
