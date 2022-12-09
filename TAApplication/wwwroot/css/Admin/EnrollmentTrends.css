@@ -1,0 +1,73 @@
+﻿/*
+Author: Robert Davidson
+Partner: David Clark
+Date: 12/09/2022
+Course: CS 4540, University of Utah, School of Computing
+Copyright: CS 4540, David Clark and Robert Davidson - This work may not be copied for use in Academic Coursework.
+
+                                                      I, David Clark, certify that I wrote this code from scratch and did not copy it in part or whole from
+another source.  Any references used in the completion of the assignment are cited in my README file.
+
+I, Robert Davidson, certify that I wrote this code from scratch and did not copy it in part or whole from
+another source. Any references used in the completion of the assignment are cited in my README file.
+
+File Contents
+
+Defines styles, mainly for Highcharts dark-theme.
+*/
+
+/* code taken/modified from https://jsfiddle.net/highcharts/vstf68b3/ */
+
+:root { /* light mode */
+    --background-color: #ffffff;
+    --text-color: #292b2c;
+    --hilight-color: #0275d8;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: #1F2227;
+        --text-color: #c0c0c0;
+        --hilight-color: #8db4d6;
+    }
+
+    /* Some data colors. Light mode uses defaults */
+    .highcharts-color-0 {
+        fill: #0460ba;
+        stroke: #0460ba;
+    }
+    .highcharts-color-1 {
+        fill: #9696ab;
+        stroke: #9696ab;
+    }
+}
+
+body {
+    background-color: var(--background-color);
+}
+.highcharts-background {
+    fill: var(--background-color);
+}
+.highcharts-container text {
+    fill: var(--text-color) !important
+}
+
+.highcharts-legend-item text,
+.highcharts-title{
+    /*fill: var(--text-color) !important*/
+}
+.highcharts-subtitle,
+.highcharts-credits,
+.highcharts-axis-title {
+    fill-opacity: 0.7;
+}
+.highcharts-grid-line {
+    stroke: var(--text-color);
+    stroke-opacity: 0.2;
+}
+.highcharts-tooltip-box {
+    fill: var(--background-color);
+}
+.highcharts-column-series rect.highcharts-point {
+    stroke: var(--background-color);
+}

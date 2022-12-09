@@ -14,7 +14,7 @@ Copyright:  CS 4540, David Clark and Robert Davidson  - This work may not be cop
     
 PS4:
     TAApplication has sign-in and register features, with users separated
-    into 3 roles, Spplicants, Professors, and Admins. Each user has one role, and will see
+    into 3 roles, Applicants, Professors, and Admins. Each user has one role, and will see
     different pages/links based on that role. Both frontend and backend are independently secured
     and validated.
 
@@ -31,7 +31,8 @@ PS8:
     and mediated by AJAX/JSON.
 
 PS9:
-    asdf
+    Administrators can now view Enrollment Trends which plots enrollment data using High Charts. This data is read from a
+    CSV file and added to our database. Web app now supports dark mode.
 
 
 
@@ -45,7 +46,7 @@ N/A
 
 # Above and Beyond:
 
-The styling is nice, nothing beyond that.
+App now supports dark mode and alternative displays for Enrollment Trends.
 
 # Consulted Peers:
 
@@ -78,4 +79,4 @@ Trophy Image - https://www.publicdomainpictures.net/en/view-image.php?image=1634
    6. Assignment Six:       Predicted Hours: 15 Actual Hours: 6
    
    8. Assignment Eight:     Predicted Hours: 12 Actual Hours: 13
-   9. Assignment Nine:      Predicted Hours: 12 Actual Hours: 3.5
+   9. Assignment Nine:      Predicted Hours: 12 Actual Hours: 10
