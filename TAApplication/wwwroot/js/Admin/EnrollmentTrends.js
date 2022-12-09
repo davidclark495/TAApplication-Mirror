@@ -16,26 +16,6 @@
 //         Sets up the High Chart and handles page activity
 // */
 
-// ###################################################################################################################
-// //$(document).ready(function () {
-// //    $('#roleManager').DataTable();
-// //});
-//
-// //function setRole(unid,role) {
-// //    $.post(
-// //        {
-// //            url: "/Admin/SetRole",
-// //            data: {
-// //                "unid": unid,
-// //                "role": role
-// //            }
-// //        })
-// //        .done(function (data){
-// //        console.log("Sample of Data:", data);
-// //    });
-// //}
-// ###################################################################################################################
-
 document.getElementById('enrollment-data-form').onsubmit = function() {
     loadFormData();
     return false;
@@ -44,8 +24,7 @@ document.getElementById('enrollment-data-form').onsubmit = function() {
 
 function loadFormData()
 {
-    $("#get-data-button-loading").show();
-    $("#get-data-button-default").hide();
+    set_button_loading();
     
     let start_date = document.getElementById('start-date').value;
     let end_date = document.getElementById('end-date').value;
@@ -64,8 +43,7 @@ function loadFormData()
             },
         }
     ).done(function (data) {
-        $("#get-data-button-loading").hide();
-        $("#get-data-button-default").show();
+        set_button_finished();
         chartEnrollmentData(data);
     });
 }
@@ -87,8 +65,7 @@ function chartEnrollmentData(data) {
 
 }
 
-$("#get-data-button-loading").hide();
-$("#get-data-button-default").show();
+set_button_finished();
 
 $(document).ready( function() {
     $("#chart").highcharts({
@@ -131,3 +108,13 @@ $(document).ready( function() {
         }
     });
 });
+
+function set_button_loading(){
+    $("#get-data-button-loading").removeClass("d-none");    // similar to 'show'
+    $("#get-data-button-default").addClass("d-none");       // similar to 'hide'
+}
+
+function set_button_finished(){
+    $("#get-data-button-loading").addClass("d-none");       // similar to 'hide'
+    $("#get-data-button-default").removeClass("d-none");    // similar to 'show'
+}
